@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phần Mềm Lý Thuyết Ngoại Thương</title>
+    <style>
+        /* --- BẢNG MÀU CHỦ ĐẠO ---
+           Xanh nhạt: #EBF3FA / #D0E1F9 / #1E3A8A
+           Vàng nhạt: #FEF9C3 / #FEF08A
+           Đỏ tươi:   #DC2626 / #EF4444
+        --------------------------- */
+        :root {
+            --bg-light-blue: #EBF3FA;
+            --primary-blue: #1E3A8A;
+            --accent-blue: #3B82F6;
+            --light-yellow: #FEF9C3;
+            --border-yellow: #FDE047;
+            --bright-red: #DC2626;
+            --hover-red: #B91C1C;
+            --text-dark: #1F2937;
+            --text-light: #FFFFFF;
+            --card-bg: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light-blue);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        header {
+            background-color: var(--primary-blue);
+            color: var(--text-light);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--bright-red);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* NAV TABS (TAB CHÍNH) */
+        nav.tabs {
+            display: flex;
+            background-color: #D0E1F9;
+            padding: 10px 20px 0 20px;
+            gap: 8px;
+            border-bottom: 2px solid #CBD5E1;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            border: none;
+            background-color: #BFDBFE;
+            color: var(--primary-blue);
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 8px 8px 0 0;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background-color: var(--light-yellow);
+            color: var(--bright-red);
+        }
+
+        .tab-btn.active {
+            background-color: var(--bright-red);
+            color: var(--text-light);
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* CONTAINER CHÍNH */
+        main {
+            flex: 1;
+            padding: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .tab-content {
+            display: none;
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--accent-blue);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* FORM THÔNG TIN SINH VIÊN */
+        .info-card {
+            background-color: var(--light-yellow);
+            border: 2px solid var(--border-yellow);
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .info-card h2 {
+            color: var(--bright-red);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--primary-blue);
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #CBD5E1;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .btn-submit {
+            background-color: var(--bright-red);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--hover-red);
+        }
+
+        /* --- SUB-TABS DÀNH RIÊNG CHO LÝ THUYẾT CHUNG & THỰC HÀNH --- */
+        .sub-tabs-container {
+            display: flex;
+            gap: 10px;
+            border-bottom: 2px solid var(--accent-blue);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+
+        .sub-tab-btn {
+            padding: 10px 16px;
+            background-color: #E2E8F0;
+            color: var(--primary-blue);
+            border: 1px solid #CBD5E1;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .sub-tab-btn:hover {
+            background-color: var(--light-yellow);
+        }
+
+        .sub-tab-btn.active {
+            background-color: var(--primary-blue);
+            color: var(--text-light);
+            border-color: var(--primary-blue);
+        }
+
+        .sub-tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .sub-tab-content.active {
+            display: block;
+        }
+
+        .practice-sub-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .practice-sub-content.active {
+            display: block;
+        }
+
+        /* DANH SÁCH MỤC NỘI DUNG (THEORY TOPICS) */
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .topic-card {
+            background-color: #F8FAFC;
+            border: 2px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .topic-card:hover {
+            border-color: var(--accent-blue);
+            background-color: var(--light-yellow);
+            transform: translateY(-2px);
+        }
+
+        .topic-card.active {
+            border-color: var(--bright-red);
+            background-color: var(--light-yellow);
+            box-shadow: 0 4px 8px rgba(220, 38, 38, 0.15);
+        }
+
+        .topic-icon {
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .topic-title {
+            font-weight: bold;
+            font-size: 14px;
+            color: var(--primary-blue);
+        }
+
+        /* VÙNG HIỂN THỊ CHI TIẾT NỘI DUNG & MÔ PHỎNG */
+        .detail-display-area {
+            background-color: #FFFFFF;
+            border: 1px solid #CBD5E1;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        /* KHUNG MÔ PHỎNG ĐỘNG (DYNAMIC SIMULATION CANVAS) */
+        .simulation-box {
+            background: linear-gradient(135deg, #1E3A8A 0%, #0F172A 100%);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: white;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--accent-blue);
+        }
+
+        .simulation-title {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #93C5FD;
+            font-weight: bold;
+        }
+
+        /* CSS Animation elements */
+        .sim-flow {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .sim-node {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid #60A5FA;
+            padding: 12px 18px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 13px;
+            min-width: 120px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .sim-arrow {
+            font-size: 20px;
+            color: #FDE047;
+            animation: pulse 1.5s infinite;
+        }
+
+        .pulse-active {
+            border-color: #EF4444;
+            background-color: rgba(239, 68, 68, 0.2);
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; transform: translateX(-3px); }
+            50% { opacity: 1; transform: translateX(3px); }
+            100% { opacity: 0.3; transform: translateX(-3px); }
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 5px #EF4444; }
+            to { box-shadow: 0 0 15px #EF4444; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* VĂN BẢN LÝ THUYẾT CHI TIẾT */
+        .theory-title-main {
+            color: var(--bright-red);
+            border-bottom: 2px solid var(--bright-red);
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .theory-h2 {
+            color: var(--primary-blue);
+            margin: 18px 0 10px 0;
+            font-size: 18px;
+            border-left: 4px solid var(--accent-blue);
+            padding-left: 10px;
+        }
+
+        .theory-h3 {
+            color: #1E40AF;
+            margin: 12px 0 6px 0;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .highlight-box {
+            background-color: var(--light-yellow);
+            border-left: 4px solid var(--bright-red);
+            padding: 12px 15px;
+            margin: 12px 0;
+            border-radius: 0 6px 6px 0;
+            line-height: 1.6;
+        }
+
+        .example-box {
+            background-color: #F0F9FF;
+            border: 1px solid #BAE6FD;
+            border-left: 4px solid var(--accent-blue);
+            padding: 12px 15px;
+            margin: 12px 0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        /* BẢNG THỰC HÀNH VÀ FORM ĐÁNH GIÁ */
+        .excel-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+
+        .excel-table th, .excel-table td {
+            border: 1px solid #CBD5E1;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .excel-table th {
+            background-color: var(--primary-blue);
+            color: white;
+            text-align: center;
+        }
+
+        .excel-table tr:nth-child(even) {
+            background-color: #F8FAFC;
+        }
+
+        .excel-table input, .excel-table select, .excel-table textarea {
+            width: 100%;
+            padding: 6px 8px;
+            border: 1px solid #94A3B8;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .excel-table .calculated-cell {
+            background-color: #FEF08A;
+            font-weight: bold;
+            color: var(--bright-red);
+        }
+
+        .profile-section {
+            background: #F8FAFC;
+            border: 1px solid #CBD5E1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .profile-section h3 {
+            color: var(--primary-blue);
+            border-bottom: 2px solid var(--accent-blue);
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        /* INPUT STYLES CHO HỒ SƠ ĐÁNH GIÁ ĐỐI TÁC */
+        .profile-field-group {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .profile-field-group label {
+            font-weight: bold;
+            color: #1F2937;
+            min-width: 260px;
+        }
+
+        .profile-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 8px 12px;
+            border: 1px solid #94A3B8;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: #FFFFFF;
+        }
+
+        .profile-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .profile-textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #94A3B8;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: #FFFFFF;
+            min-height: 80px;
+            resize: vertical;
+            margin-top: 5px;
+        }
+
+        .btn-pdf {
+            background-color: #059669;
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+
+        .btn-pdf:hover {
+            background-color: #047857;
+        }
+
+        /* BÀI TẬP & KIỂM TRA */
+        .exercise-card {
+            border: 1px solid #E2E8F0;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            background-color: #FAFAFA;
+        }
+
+        .exercise-card h3 {
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: var(--primary-blue);
+            color: white;
+            font-size: 13px;
+            margin-top: auto;
+        }
+
+        /* STYLES RIÊNG KHI IN PDF (A4, MARGIN 2CM, FONT 11PT, LINE-HEIGHT 1.15) */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 2cm;
+            }
+
+            body {
+                background-color: #FFFFFF !important;
+                color: #000000 !important;
+                font-size: 11pt !important;
+                line-height: 1.15 !important;
+                display: block !important;
+            }
+
+            header, nav, footer, .sub-tabs-container, .btn-pdf, .no-print, .exercise-nav-container, .test-action-bar {
+                display: none !important;
+            }
+
+            main {
+                padding: 0 !important;
+                margin: 0 !important;
+                max-width: 100% !important;
+            }
+
+            .tab-content {
+                display: none !important;
+            }
+
+            .tab-content.active {
+                display: block !important;
+                padding: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                background: transparent !important;
+            }
+
+            .practice-sub-content {
+                display: none !important;
+            }
+
+            .practice-sub-content.active {
+                display: block !important;
+            }
+
+            .profile-print-container, .print-sub-container {
+                border: none !important;
+                padding: 0 !important;
+            }
+
+            .profile-section {
+                background: transparent !important;
+                border: 1px solid #666 !important;
+                padding: 12px !important;
+                margin-bottom: 15px !important;
+                page-break-inside: avoid;
+            }
+
+            .profile-section h3 {
+                color: #000 !important;
+                border-bottom: 1px solid #000 !important;
+                font-size: 12pt !important;
+            }
+
+            .profile-input, .profile-textarea, .excel-table input, .excel-table select, .excel-table textarea {
+                border: none !important;
+                border-bottom: 1px dotted #444 !important;
+                border-radius: 0 !important;
+                padding: 2px 4px !important;
+                background: transparent !important;
+                font-size: 11pt !important;
+                font-family: inherit !important;
+            }
+
+            .excel-table th {
+                background-color: #E2E8F0 !important;
+                color: #000 !important;
+            }
+
+            .profile-textarea {
+                min-height: auto !important;
+            }
+
+            /* Print styling for Test Section */
+            .print-header-student {
+                display: block !important;
+                border-bottom: 2px solid #000;
+                padding-bottom: 10px;
+                margin-bottom: 15px;
+            }
+
+            .answer-area-print {
+                border: 1px solid #333 !important;
+                min-height: 250px !important;
+                padding: 10px !important;
+                white-space: pre-wrap;
+                font-size: 11pt !important;
+                background: #fff !important;
+            }
+
+            h2 {
+                font-size: 15pt !important;
+                color: #000 !important;
+            }
+        }
+
+        .print-header-student {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Chương 1 - Tổng quan nghiệp vụ ngoại thương</h1>
+    </header>
+
+    <nav class="tabs">
+        <button class="tab-btn active" onclick="switchTab(event, 'tab-info')">THÔNG TIN CHUNG</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab-theory')">LÝ THUYẾT CHUNG</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab-practice')">THỰC HÀNH</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab-example')">BÀI TẬP MINH HOẠ</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab-test')">BÀI TẬP KIỂM TRA</button>
+    </nav>
+
+    <main>
+        <section id="tab-info" class="tab-content active">
+            <div class="info-card">
+                <h2>THÔNG TIN SINH VIÊN</h2>
+                <form id="student-form" onsubmit="saveStudentInfo(event)">
+                    <div class="form-group">
+                        <label for="student-name">Họ và Tên Sinh Viên:</label>
+                        <input type="text" id="student-name" placeholder="Nhập đầy đủ họ và tên..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-id">Mã Số Sinh Viên (MSSV):</label>
+                        <input type="text" id="student-id" placeholder="Nhập mã số sinh viên..." required>
+                    </div>
+                    <button type="submit" class="btn-submit">LƯU THÔNG TIN</button>
+                </form>
+                <div id="info-display" class="highlight-box" style="display: none; margin-top: 15px;">
+                    <p><strong>Sinh viên:</strong> <span id="disp-name"></span></p>
+                    <p><strong>MSSV:</strong> <span id="disp-id"></span></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-theory" class="tab-content">
+            <h2 class="theory-title-main">TỔNG QUAN VỀ NGHIỆP VỤ NGOẠI THƯƠNG</h2>
+
+            <div class="sub-tabs-container">
+                <button class="sub-tab-btn active" onclick="switchSubTab(event, 'subtab-ch1')">Chương 1.1: Tổng Quan Ngoại Thương</button>
+                <button class="sub-tab-btn" onclick="switchSubTab(event, 'subtab-ch2')">Chương 1.2: Chính Sách & Phi Thuế Quan</button>
+                <button class="sub-tab-btn" onclick="switchSubTab(event, 'subtab-ch3')">Chương 1.3: Sàn B2B & Nghiên Cứu Đối Tác</button>
+                <button class="sub-tab-btn" onclick="switchSubTab(event, 'subtab-ch4')">Chương 1.4: Giới Thiệu Môn Học</button>
+            </div>
+
+            <div id="subtab-ch1" class="sub-tab-content active">
+                <div class="topic-grid">
+                    <div class="topic-card active" onclick="loadTheoryDetail('1.1.1', this)">
+                        <div class="topic-icon">1</div>
+                        <div class="topic-title">Khái niệm, đặc điểm & Vai trò TMQT</div>
+                    </div>
+                    <div class="topic-card" onclick="loadTheoryDetail('1.1.2', this)">
+                        <div class="topic-icon">2</div>
+                        <div class="topic-title">Các hình thức giao dịch ngoại thương</div>
+                    </div>
+                    <div class="topic-card" onclick="loadTheoryDetail('1.1.3', this)">
+                        <div class="topic-icon">3</div>
+                        <div class="topic-title">Cổng thông tin một cửa quốc gia (VNSW)</div>
+                    </div>
+                </div>
+                <div class="detail-display-area" id="detail-area-ch1"></div>
+            </div>
+
+            <div id="subtab-ch2" class="sub-tab-content">
+                <div class="topic-grid">
+                    <div class="topic-card active" onclick="loadTheoryDetail('1.2.1a', this)">
+                        <div class="topic-icon">A</div>
+                        <div class="topic-title">Cấu trúc mã HS Code</div>
+                    </div>
+                    <div class="topic-card" onclick="loadTheoryDetail('1.2.1b', this)">
+                        <div class="topic-icon">B</div>
+                        <div class="topic-title">6 Quy tắc vàng phân loại HS</div>
+                    </div>
+                    <div class="topic-card" onclick="loadTheoryDetail('1.2.1c', this)">
+                        <div class="topic-icon">C</div>
+                        <div class="topic-title">Phân loại Thuế suất XNK</div>
+                    </div>
+                </div>
+                <div class="detail-display-area" id="detail-area-ch2"></div>
+            </div>
+
+            <div id="subtab-ch3" class="sub-tab-content">
+                <div class="topic-grid">
+                    <div class="topic-card active" onclick="loadTheoryDetail('1.3.1', this)">
+                        <div class="topic-icon">1</div>
+                        <div class="topic-title">Thu thập thông tin trên Sàn B2B</div>
+                    </div>
+                    <div class="topic-card" onclick="loadTheoryDetail('1.3.2', this)">
+                        <div class="topic-icon">2</div>
+                        <div class="topic-title">Xác minh năng lực & Credit Check</div>
+                    </div>
+                </div>
+                <div class="detail-display-area" id="detail-area-ch3"></div>
+            </div>
+
+            <div id="subtab-ch4" class="sub-tab-content">
+                <div class="topic-grid">
+                    <div class="topic-card active" onclick="loadTheoryDetail('1.4.1', this)">
+                        <div class="topic-icon">1</div>
+                        <div class="topic-title">Vị trí & Vai trò môn học</div>
+                    </div>
+                </div>
+                <div class="detail-display-area" id="detail-area-ch4"></div>
+            </div>
+        </section>
+
+        <section id="tab-practice" class="tab-content">
+            <h2 class="theory-title-main">NỘI DUNG THỰC HÀNH NGHIỆP VỤ</h2>
+
+            <div class="sub-tabs-container">
+                <button class="sub-tab-btn active" onclick="switchPracticeSubTab(event, 'pract-1')">1. Báo Cáo Chính Sách Mặt Hàng</button>
+                <button class="sub-tab-btn" onclick="switchPracticeSubTab(event, 'pract-hs')">2. Phân Loại HS Code</button>
+                <button class="sub-tab-btn" onclick="switchPracticeSubTab(event, 'pract-tax')">3. Tính Thuế Nhập Khẩu Đa Tầng</button>
+                <button class="sub-tab-btn" onclick="switchPracticeSubTab(event, 'pract-scorecard')">4. Bảng Chấm Điểm NCC (Scorecard)</button>
+                <button class="sub-tab-btn" onclick="switchPracticeSubTab(event, 'pract-2')">5. Hồ Sơ Đánh Giá Đối Tác</button>
+            </div>
+
+            <div id="pract-1" class="practice-sub-content active">
+                <div class="print-header-student">
+                    <h2>BÁO CÁO PHÂN TÍCH CHÍNH SÁCH MẶT HÀNG XUẤT NHẬP KHẨU</h2>
+                    <p><strong>Sinh viên thực hiện:</strong> <span class="prof-student-name-display">....................</span> | <strong>Mã SV:</strong> <span id="test-student-id-display">....................</span></p>
+                    <p><strong>Ngày lập báo cáo:</strong> <span class="prof-date-display"></span></p>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;" class="no-print">
+                    <h3 style="color: var(--primary-blue); margin: 0;">LẬP BÁO CÁO PHÂN TÍCH CHÍNH SÁCH MẶT HÀNG XUẤT NHẬP KHẨU</h3>
+                    <button type="button" class="btn-pdf" onclick="window.print()">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                        IN BÁO CÁO PDF (A4)
+                    </button>
+                </div>
+
+                <p style="margin-bottom: 15px; font-size: 14px;" class="no-print"><em>Sinh viên hoàn thiện đầy đủ 5 mục theo đúng mẫu thực tế nghiệp vụ quản lý XNK dưới đây:</em></p>
+
+                <div class="profile-section">
+                    <h3>1. THÔNG TIN CHUNG VỀ MẶT HÀNG</h3>
+                    <div class="profile-field-group">
+                        <label>Tên thương mại & Mô tả kỹ thuật:</label>
+                        <input type="text" class="profile-input" id="p_itemName" value="Máy điều hòa không khí Inverter hai chiều gia đình (Công suất 12,000 BTU, môi chất lạnh R32)">
+                    </div>
+                    <div class="profile-field-group">
+                        <label>Mã HS (HS Code 8 chữ số dự kiến):</label>
+                        <input type="text" class="profile-input" id="p_hsCode" value="8415.10.10">
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <label style="font-weight: bold; color: #1F2937;">Lý do lựa chọn / Quy tắc phân loại HS áp dụng:</label>
+                        <textarea class="profile-textarea" placeholder="Nêu lý do và căn cứ quy tắc phân loại HS (GIR 1, GIR 6)...">Áp dụng Quy tắc 1 (GIR 1) & Quy tắc 6 (GIR 6): Mặt hàng là máy điều hòa không khí dạng cửa hoặc tường, loại hai khối độc lập (split-system), công suất làm lạnh <= 26.38 kW (12,000 BTU) dùng cho gia đình, khớp mô tả danh mục hàng hóa xuất nhập khẩu Việt Nam thuộc nhóm 84.15, phân nhóm 8415.10, mã chi tiết 8415.10.10.</textarea>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h3>2. CHÍNH SÁCH QUẢN LÝ XUẤT NHẬP KHẨU & QUẢN LÝ CHUYÊN NGÀNH</h3>
+                    <div class="profile-field-group">
+                        <label>Chính sách nhập khẩu chung:</label>
+                        <select class="profile-input">
+                            <option selected>Nhập khẩu có điều kiện (Không thuộc diện cấm nhập khẩu)</option>
+                            <option>Tự do nhập khẩu (Không yêu cầu điều kiện)</option>
+                            <option>Cấm nhập khẩu (Nghị định 69/2018/NĐ-CP)</option>
+                        </select>
+                    </div>
+                    
+                    <h4 style="margin: 15px 0 10px 0; color: #1E40AF; font-size: 14px;">Kiểm tra chuyên ngành & Căn cứ pháp lý/Văn bản quy phạm pháp luật hiện hành:</h4>
+                    
+                    <div class="profile-field-group">
+                        <label>a. Kiểm tra chất lượng nhà nước (KTCL):</label>
+                        <input type="text" class="profile-input" value="Bắt buộc KTCL theo Thông tư 01/2021/TT-BKHCN & QĐ 2711/QĐ-BKHCN (Bộ KH&CN - QCVN 9:2012/BKHCN)">
+                    </div>
+                    <div class="profile-field-group">
+                        <label>b. Dán nhãn năng lượng & Kiểm tra HSNL tối thiểu:</label>
+                        <input type="text" class="profile-input" value="Bắt buộc thử nghiệm HSNL tối thiểu & dán nhãn năng lượng theo Quyết định 14/2023/QĐ-TTg & TCVN 7830">
+                    </div>
+                    <div class="profile-field-group">
+                        <label>c. Quản lý chất làm lạnh (môi chất R32):</label>
+                        <input type="text" class="profile-input" value="Đăng ký ngạch nhập khẩu chất làm lạnh hydrofluorocarbon (HFC) theo Luật Bảo vệ môi trường 2020 & Nghị định 06/2022/NĐ-CP">
+                    </div>
+                    <div class="profile-field-group">
+                        <label>d. Quy định dán nhãn hàng hóa:</label>
+                        <input type="text" class="profile-input" value="Tuân thủ Nghị định 43/2017/NĐ-CP & Nghị định 111/2021/NĐ-CP (Nhãn gốc + Nhãn phụ tiếng Việt đầy đủ thông tin bắt buộc)">
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h3>3. CHÍNH SÁCH THUẾ & ƯU ĐÃI THUẾ</h3>
+                    <table class="excel-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 35%;">Loại thuế / Thuế suất</th>
+                                <th style="width: 25%;">Mức thuế suất (%)</th>
+                                <th style="width: 40%;">Ghi chú / Căn cứ pháp lý</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Thuế NK ưu đãi thông thường (MFN)</strong></td>
+                                <td><input type="text" value="14.0%" style="text-align: center;"></td>
+                                <td>Nghị định 26/2023/NĐ-CP Biểu thuế xuất nhập khẩu ưu đãi</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Thuế NK ưu đãi đặc biệt ATIGA (Form D)</strong></td>
+                                <td><input type="text" value="0.0%" style="text-align: center; color: green; font-weight: bold;"></td>
+                                <td>Nghị định 129/2022/NĐ-CP (Nhập khẩu từ ASEAN có C/O Form D)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Thuế giá trị gia tăng (VAT)</strong></td>
+                                <td><input type="text" value="10.0%" style="text-align: center;"></td>
+                                <td>Luật Thuế giá trị gia tăng (Giá tính thuế VAT = Trị giá CIF + Thuế NK)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="margin-top: 10px;">
+                        <label style="font-weight: bold; color: #1F2937;">Điều kiện để được hưởng thuế suất ưu đãi đặc biệt (Form D):</label>
+                        <textarea class="profile-textarea" placeholder="Nêu rõ điều kiện chứng nhận xuất xứ C/O Form D...">Hàng hóa có chứng nhận xuất xứ C/O Form D hợp lệ do cơ quan có thẩm quyền nước xuất khẩu thuộc khối ASEAN cấp; Hàng hóa đáp ứng quy tắc xuất xứ thuần túy (WO) hoặc hàm lượng giá trị ASEAN (RVC >= 40%); Vận chuyển trực tiếp từ nước xuất khẩu thành viên sang Việt Nam theo quy định của Hiệp định ATIGA.</textarea>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h3>4. HỒ SƠ THỦ TỤC HẢI QUAN & QUY TRÌNH THỰC HIỆN</h3>
+                    <div style="margin-bottom: 15px;">
+                        <label style="font-weight: bold; color: #1F2937; display: block; margin-bottom: 5px;">a. Danh mục các chứng từ cần thiết trong Bộ hồ sơ Hải quan nhập khẩu:</label>
+                        <textarea class="profile-textarea" style="min-height: 100px;">1. Tờ khai hải quan nhập khẩu (Customs Declaration). 2. Hóa đơn thương mại (Commercial Invoice) - 01 bản sao. 3. Vận đơn (Bill of Lading / Airway Bill) - 01 bản sao. 4. Phiếu đóng gói hàng hóa (Packing List) - 01 bản sao. 5. Chứng nhận xuất xứ (C/O Form D) - Bản gốc/Bản điện tử (để hưởng thuế suất 0%). 6. Giấy đăng ký kiểm tra chất lượng nhà nước (KTCL) có xác nhận của Chi cục Tiêu chuẩn Đo lường Chất lượng. 7. Đăng ký/Giấy xác nhận dán nhãn năng lượng & Đăng ký ngạch môi chất lạnh R32.</textarea>
+                    </div>
+                    <div>
+                        <label style="font-weight: bold; color: #1F2937; display: block; margin-bottom: 5px;">b. Lộ trình / Các bước thực hiện từ trước khi hàng về cảng đến khi hoàn thành thông quan:</label>
+                        <textarea class="profile-textarea" style="min-height: 110px;">Bước 1 (Trước khi hàng về): Ký hợp đồng mua bán, yêu cầu NCC làm C/O Form D; Đăng ký ngạch môi chất R32; Đăng ký KTCL và Đăng ký Thử nghiệm Hiệu suất năng lượng trên Cổng thông tin một cửa quốc gia (VNSW). Bước 2 (Khi hàng cập cảng): Truyền tờ khai hải quan điện tử trên hệ thống VNACCS/VCIS, tiếp nhận kết quả phân luồng (Xanh/Vàng/Đỏ). Bước 3 (Kiểm tra & Lấy mẫu): Đăng ký với cơ quan kiểm tra lấy mẫu đại diện tại cảng để thử nghiệm KTCL & HSNL; Trình hồ sơ hải quan giải phóng hàng về kho bảo quản (nếu đủ điều kiện). Bước 4 (Thông quan chính thức): Cập nhật kết quả Hợp quy / Giấy xác nhận KTCL lên VNSW, nộp đầy đủ thuế NK và VAT để Chi cục Hải quan quyết định Thông quan hàng hóa.</textarea>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h3>5. RỦI RO & ĐỀ XUẤT KHUYẾN NGHỊ</h3>
+                    <div style="margin-bottom: 15px;">
+                        <label style="font-weight: bold; color: #1F2937; display: block; margin-bottom: 5px;">a. Những rủi ro doanh nghiệp dễ gặp phải:</label>
+                        <textarea class="profile-textarea" style="min-height: 90px;">- Nhãn mác không hợp lệ: Nhãn gốc thiếu thông tin bắt buộc hoặc nhãn phụ không khớp với chứng từ dẫn đến phạt vi phạm hành chính. - Mã HS Code bị hải quan bác bỏ: Áp sai mã HS dẫn đến truy thu thuế và xử phạt kê khai sai. - Sai sót trên C/O Form D: Sai khác nhỏ về mô tả, tiêu chí xuất xứ làm C/O bị từ chối, mất ưu đãi thuế 0%. - Chậm trễ lấy kết quả KTCL / Dán nhãn năng lượng: Tốn chi phí lưu kho bãi (Demurrage/Detention) tại cảng.</textarea>
+                    </div>
+                    <div>
+                        <label style="font-weight: bold; color: #1F2937; display: block; margin-bottom: 5px;">b. Đề xuất hành động cho doanh nghiệp để đảm bảo thông quan nhanh chóng:</label>
+                        <textarea class="profile-textarea" style="min-height: 90px;">1. Thực hiện thủ tục xác định trước mã HS (Advance Ruling) hoặc tham vấn đơn vị logistics chuyên nghiệp. 2. Kiểm tra kỹ bản nháp (Draft) C/O Form D và nhãn mác sản phẩm trước khi nhà xuất khẩu gửi hàng. 3. Thực hiện đăng ký KTCL và Dán nhãn năng lượng trực tuyến trước khi tàu cập cảng 3-5 ngày. 4. Lựa chọn các phòng thử nghiệm được chỉ định uy tín để đẩy nhanh tiến độ cấp chứng nhận Hợp quy.</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pract-hs" class="practice-sub-content">
+                <div class="print-header-student">
+                    <h2>BẢN GIẢI TRÌNH PHÂN LOẠI MÃ HS HÀNG HÓA XUẤT NHẬP KHẨU</h2>
+                    <p><strong>Sinh viên thực hiện:</strong> <span class="prof-student-name-display">....................</span> | <strong>Mã SV:</strong> <span class="prof-student-id-display">....................</span></p>
+                    <p><strong>Ngày lập giải trình:</strong> <span class="prof-date-display"></span></p>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;" class="no-print">
+                    <h3 style="color: var(--primary-blue); margin: 0;">2. PHÂN LOẠI HS CODE & HỒ SƠ GIẢI TRÌNH HẢI QUAN</h3>
+                    <button type="button" class="btn-pdf" onclick="window.print()">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                        IN BẢN GIẢI TRÌNH PDF (A4)
+                    </button>
+                </div>
+
+                <div class="profile-section">
+                    <h3>I. THÔNG TIN HÀNG HÓA VÀ TỜ KHAI HẢI QUAN</h3>
+                    <div class="profile-field-group">
+                        <label>1. Tên hàng hóa (Tên thương mại & kỹ thuật):</label>
+                        <input type="text" class="profile-input" value="Bàn phím cơ không dây tích hợp Bluetooth và cáp USB-C gắn ngoài">
+                    </div>
+                    <div class="profile-field-group">
+                        <label>2. Mã Số Tờ Khai Hải Quan / Số Vận Đơn:</label>
+                        <input type="text" class="profile-input" value="105892349100 / AWB-8829301928">
+                    </div>
+                    <div class="profile-field-group">
+                        <label>3. Xuất Xứ (Origin) & Nhà Sản Xuất:</label>
+                        <input type="text" class="profile-input" value="Trung Quốc (China) - Dongguan Tech Manufacturing Co., Ltd">
+                    </div>
+                    <div class="profile-field-group">
+                        <label>4. Thông Số Kỹ Thuật & Công Dụng Chi Tiết:</label>
+                        <textarea class="profile-textarea" style="min-height: 70px;">Bàn phím cơ sử dụng công nghệ kết nối không dây Bluetooth 5.0 kết hợp cổng USB-C, đóng vai trò thiết bị nhập dữ liệu (input unit) dùng cho hệ thống máy xử lý dữ liệu tự động (máy tính để bàn, máy tính xách tay).</textarea>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h3>II. MÃ HS ĐỀ XUẤT ÁP DỤNG & THUẾ SUẤT TƯƠNG ỨNG</h3>
+                    <div class="profile-field-group">
+                        <label>1. Mã HS Code 8 Chữ Số Đề Xuất Áp Dụng:</label>
+                        <input type="text" class="profile-input" style="font-weight: bold; color: var(--primary-blue);" value="8471.60.20">
+                    </div>
+                    <div class="profile-field-group">
+                        <label>2. Mô Tả Tên Nhóm/Phân Nhóm Theo Biểu Thuế:</label>
+                        <input type="text" class="profile-input" value="Nhóm 84.71: Máy xử lý dữ liệu tự động... - Phân nhóm 8471.60: Đơn vị nhập hoặc xuất... - Mã 8471.60.20: Bàn phím (Keyboards)">
+                    </div>
+                    <div class="profile-field-group">
+                        <label>3. Mức Thuế Suất Nhập Khẩu MFN / Ưu Đãi Đặc Biệt:</label>
+                        <input type="text" class="profile-input" value="Thuế NK MFN: 0% | Thuế NK ACFTA (Form E): 0% | VAT: 10%">
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h3>III. LẬP LUẬN PHÂN LOẠI & NGUYÊN TẮC ÁP DỤNG (GIR)</h3>
+                    <div style="margin-bottom: 12px;">
+                        <label style="font-weight: bold; color: #1F2937; display: block; margin-bottom: 5px;">1. Quy tắc tổng quát giải thích HS (GIR) áp dụng:</label>
+                        <textarea class="profile-textarea" style="min-height: 80px;">- Áp dụng Quy tắc 1 (GIR 1): Tên nhóm 84.71 quy định các thiết bị nhập liệu tự động. Căn cứ chú giải 5(B) Chương 84, sản phẩm là bộ phận kết nối trực tiếp với máy tính để truyền tín hiệu đầu vào.
+- Áp dụng Quy tắc 6 (GIR 6): Phân loại chi tiết ở cấp độ 6 chữ số (8471.60) và 8 chữ số (8471.60.20 - Bàn phím) hoàn toàn khớp với bản chất kỹ thuật.</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pract-tax" class="practice-sub-content">
+                <div class="print-header-student">
+                    <h2>BẢNG TÍNH THUẾ NHẬP KHẨU VÀ CÁC LOẠI THUẾ LIÊN QUAN</h2>
+                    <p><strong>Sinh viên thực hiện:</strong> <span class="prof-student-name-display">....................</span> | <strong>Mã SV:</strong> <span class="prof-student-id-display">....................</span></p>
+                    <p><strong>Ngày lập:</strong> <span class="prof-date-display"></span></p>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;" class="no-print">
+                    <h3 style="color: var(--primary-blue); margin: 0;">3. TÍNH THUẾ NHẬP KHẨU ĐA TẦNG & TRỊ GIÁ HẢI QUAN</h3>
+                    <button type="button" class="btn-pdf" onclick="window.print()">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                        IN BẢNG TÍNH THUẾ PDF (A4)
+                    </button>
+                </div>
+
+                <div class="profile-section">
+                    <h3>I. THÔNG TIN DỮ LIỆU ĐẦU VÀO</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+                        <div>
+                            <label style="font-weight: bold; font-size: 13px;">Giá FOB (USD):</label>
+                            <input type="number" id="tax_fob" class="profile-input" value="50000" oninput="calculateFullTax()">
+                        </div>
+                        <div>
+                            <label style="font-weight: bold; font-size: 13px;">Cước biển Freight I (USD):</label>
+                            <input type="number" id="tax_freight" class="profile-input" value="3500" oninput="calculateFullTax()">
+                        </div>
+                        <div>
+                            <label style="font-weight: bold; font-size: 13px;">Bảo hiểm Insurance Insurance (USD):</label>
+                            <input type="number" id="tax_insurance" class="profile-input" value="500" oninput="calculateFullTax()">
+                        </div>
+                        <div>
+                            <label style="font-weight: bold; font-size: 13px;">Tỷ giá tính thuế (VND/USD):</label>
+                            <input type="number" id="tax_exchange" class="profile-input" value="25400" oninput="calculateFullTax()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h3>II. MỨC THUẾ SUẤT ÁP DỤNG (%)</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+                        <div>
+                            <label style="font-weight: bold; font-size: 13px;">Thuế suất NK (%):</label>
+                            <input type="number" id="tax_rate_nk" class="profile-input" value="10" oninput="calculateFullTax()">
+                        </div>
+                        <div>
+                            <label style="font-weight: bold; font-size: 13px;">Thuế suất TTĐB (%):</label>
+                            <input type="number" id="tax_rate_ttdb" class="profile-input" value="0" oninput="calculateFullTax()">
+                        </div>
+                        <div>
+                            <label style="font-weight: bold; font-size: 13px;">Thuế suất Bảo vệ Môi trường (VND/đơn vị):</label>
+                            <input type="number" id="tax_rate_bvmt" class="profile-input" value="0" oninput="calculateFullTax()">
+                        </div>
+                        <div>
+                            <label style="font-weight: bold; font-size: 13px;">Thuế suất VAT (%):</label>
+                            <input type="number" id="tax_rate_vat" class="profile-input" value="10" oninput="calculateFullTax()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h3>III. KẾT QUẢ TÍNH NGHĨA VỤ THUẾ BẮT BUỘC (VND)</h3>
+                    <table class="excel-table">
+                        <thead>
+                            <tr>
+                                <th>Chỉ tiêu nghĩa vụ Thuế</th>
+                                <th>Công thức tính toán</th>
+                                <th>Số tiền phải nộp (VND)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>1. Trị giá Hải quan (CIF - USD)</strong></td>
+                                <td>FOB + Freight + Insurance</td>
+                                <td id="res_cif_usd" class="calculated-cell">0 USD</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2. Trị giá Hải quan (CIF - VND)</strong></td>
+                                <td>CIF USD x Tỷ giá tính thuế</td>
+                                <td id="res_cif_vnd" class="calculated-cell">0 VND</td>
+                            </tr>
+                            <tr>
+                                <td><strong>3. Tiền Thuế Nhập Khẩu</strong></td>
+                                <td>Trị giá CIF VND x % Thuế NK</td>
+                                <td id="res_tax_nk" class="calculated-cell">0 VND</td>
+                            </tr>
+                            <tr>
+                                <td><strong>4. Tiền Thuế Tiêu Thụ Đặc Biệt</strong></td>
+                                <td>(CIF VND + Thuế NK) x % Thuế TTĐB</td>
+                                <td id="res_tax_ttdb" class="calculated-cell">0 VND</td>
+                            </tr>
+                            <tr>
+                                <td><strong>5. Tiền Thuế Giá Trị Gia Tăng (VAT)</strong></td>
+                                <td>(CIF VND + Thuế NK + Thuế TTĐB) x % VAT</td>
+                                <td id="res_tax_vat" class="calculated-cell">0 VND</td>
+                            </tr>
+                            <tr style="background-color: #FEF08A;">
+                                <td><strong style="color: var(--bright-red); font-size: 15px;">TỔNG NGHĨA VỤ THUẾ PHẢI NỘP</strong></td>
+                                <td>Thuế NK + Thuế TTĐB + Thuế VAT</td>
+                                <td id="res_tax_total" style="color: var(--bright-red); font-weight: bold; font-size: 16px;">0 VND</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="pract-scorecard" class="practice-sub-content">
+                <div class="print-header-student">
+                    <h2>BẢNG CHẤM ĐIỂM ĐÁNH GIÁ NĂNG LỰC NHÀ CUNG CẤP NƯỚC NGOÀI</h2>
+                    <p><strong>Sinh viên thực hiện:</strong> <span class="prof-student-name-display">....................</span> | <strong>Mã SV:</strong> <span class="prof-student-id-display">....................</span></p>
+                    <p><strong>Ngày lập:</strong> <span class="prof-date-display"></span></p>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;" class="no-print">
+                    <h3 style="color: var(--primary-blue); margin: 0;">4. BẢNG CHẤM ĐIỂM ĐÁNH GIÁ NCC (SUPPLIER SCORECARD)</h3>
+                    <button type="button" class="btn-pdf" onclick="window.print()">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                        IN BẢNG CHẤM ĐIỂM PDF (A4)
+                    </button>
+                </div>
+
+                <div class="profile-section">
+                    <h3>I. THÔNG TIN NHÀ CUNG CẤP CẦN ĐÁNH GIÁ</h3>
+                    <div class="profile-field-group">
+                        <label>Tên Công Ty Nhà Cung Cấp:</label>
+                        <input type="text" class="profile-input" value="Shenzhen Electronics & Machinery Co., Ltd">
+                    </div>
+                    <div class="profile-field-group">
+                        <label>Sản Phẩm Cung Cấp Chính:</label>
+                        <input type="text" class="profile-input" value="Linh kiện điện tử & Bo mạch máy tính">
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h3>II. MA TRẬN CHẤM ĐIỂM ĐA TIÊU CHÍ (THANG ĐIỂM 100)</h3>
+                    <table class="excel-table">
+                        <thead>
+                            <tr>
+                                <th>Tiêu chí đánh giá</th>
+                                <th>Trọng số (%)</th>
+                                <th>Điểm đánh giá (1 - 10)</th>
+                                <th>Điểm quy đổi (Trọng số x Điểm)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>1. Cạnh tranh về Giá (Price Competitiveness)</strong></td>
+                                <td>30%</td>
+                                <td><input type="number" id="sc_score_1" min="1" max="10" value="8" class="profile-input" oninput="calculateScorecard()"></td>
+                                <td id="sc_weighted_1" class="calculated-cell">2.4</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2. Chất lượng Sản phẩm (Quality & ISO)</strong></td>
+                                <td>30%</td>
+                                <td><input type="number" id="sc_score_2" min="1" max="10" value="9" class="profile-input" oninput="calculateScorecard()"></td>
+                                <td id="sc_weighted_2" class="calculated-cell">2.7</td>
+                            </tr>
+                            <tr>
+                                <td><strong>3. Tiến độ Giao hàng (Delivery & Lead time)</strong></td>
+                                <td>20%</td>
+                                <td><input type="number" id="sc_score_3" min="1" max="10" value="7" class="profile-input" oninput="calculateScorecard()"></td>
+                                <td id="sc_weighted_3" class="calculated-cell">1.4</td>
+                            </tr>
+                            <tr>
+                                <td><strong>4. Điều khoản Thanh toán (Payment Terms)</strong></td>
+                                <td>10%</td>
+                                <td><input type="number" id="sc_score_4" min="1" max="10" value="8" class="profile-input" oninput="calculateScorecard()"></td>
+                                <td id="sc_weighted_4" class="calculated-cell">0.8</td>
+                            </tr>
+                            <tr>
+                                <td><strong>5. Tín nhiệm & Hỗ trợ (Reputation & Service)</strong></td>
+                                <td>10%</td>
+                                <td><input type="number" id="sc_score_5" min="1" max="10" value="9" class="profile-input" oninput="calculateScorecard()"></td>
+                                <td id="sc_weighted_5" class="calculated-cell">0.9</td>
+                            </tr>
+                            <tr style="background-color: #FEF08A;">
+                                <td><strong style="color: var(--bright-red);">TỔNG ĐIỂM ĐÁNH GIÁ CỦA NCC</strong></td>
+                                <td>100%</td>
+                                <td>--</td>
+                                <td id="sc_total_score" style="color: var(--bright-red); font-weight: bold; font-size: 16px;">8.2 / 10</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div style="margin-top: 15px;">
+                        <label style="font-weight: bold; color: #1F2937;">Kết Luận Đánh Giá & Xếp Hạng NCC:</label>
+                        <input type="text" id="sc_conclusion" class="profile-input" style="font-weight: bold; color: green;" value="Xếp loại A - Lựa chọn làm nhà cung cấp ưu tiên (Preferred Supplier)" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pract-2" class="practice-sub-content">
+                <div class="print-header-student">
+                    <h2>HỒ SƠ ĐÁNH GIÁ NĂNG LỰC ĐỐI TÁC NGOẠI THƯƠNG</h2>
+                    <p><strong>Sinh viên thực hiện:</strong> <span class="prof-student-name-display">....................</span> | <strong>Mã SV:</strong> <span class="prof-student-id-display">....................</span></p>
+                    <p><strong>Ngày lập hồ sơ:</strong> <span class="prof-date-display"></span></p>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;" class="no-print">
+                    <h3 style="color: var(--primary-blue); margin: 0;">5. HỒ SƠ TỔNG HỢP ĐÁNH GIÁ NĂNG LỰC ĐỐI TÁC NGOẠI THƯƠNG</h3>
+                    <button type="button" class="btn-pdf" onclick="window.print()">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                        IN HỒ SƠ ĐÁNH GIÁ PDF (A4)
+                    </button>
+                </div>
+
+                <div class="profile-section">
+                    <h3>I. THÔNG TIN PHÁP LÝ & HỒ SƠ DOANH NGHIỆP</h3>
+                    <div class="profile-field-group">
+                        <label>Tên Công Ty (Tiếng Anh):</label>
+                        <input type="text" class="profile-input" value="Zhejiang Global Trading Co., Ltd">
+                    </div>
+                    <div class="profile-field-group">
+                        <label>Mã Số Thuế / Mã Đăng Ký Kinh Doanh:</label>
+                        <input type="text" class="profile-input" value="91330100MA2819XX39">
+                    </div>
+                    <div class="profile-field-group">
+                        <label>Địa Chỉ Trụ Sở Đăng Ký:</label>
+                        <input type="text" class="profile-input" value="No. 88 Binjiang Road, Hangzhou, Zhejiang, China">
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h3>II. KẾT QUẢ XÁC MINH NĂNG LỰC (CREDIT CHECK)</h3>
+                    <div style="margin-bottom: 10px;">
+                        <label style="font-weight: bold;">Kết quả kiểm tra tài chính & Lịch sử giao dịch:</label>
+                        <textarea class="profile-textarea">Doanh nghiệp hoạt động trên 10 năm, vốn điều lệ 50 triệu TND. Không có tranh tụng pháp lý trong 3 năm gần nhất. Lịch sử giao dịch uy tín trên sàn B2B Alibaba (Gold Supplier 8 năm).</textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-example" class="tab-content">
+            <h2 class="theory-title-main">BÀI TẬP MINH HOẠ NGHIỆP VỤ (CÓ LỜI GIẢI CHI TIẾT)</h2>
+
+            <div class="exercise-card">
+                <h3>Bài Tập 1: Tính Thuế Nhập Khẩu & Thuế VAT Lô Hàng Linh Kiện Điện Tử</h3>
+                <p><strong>Đề bài:</strong> Công ty A nhập khẩu lô hàng linh kiện điện tử từ Nhật Bản, giá CIF Hải Phòng là 100,000 USD. Tỷ giá tính thuế của Hải quan là 25,000 VND/USD. Thuế suất thuế NK MFN là 5%, Thuế suất VAT là 10%. Hãy tính tổng số thuế công ty A phải nộp.</p>
+                <div class="highlight-box">
+                    <p><strong>Lời giải chi tiết:</strong></p>
+                    <p>1. Trị giá Hải quan (VND) = 100,000 x 25,000 = 2,500,000,000 VND.</p>
+                    <p>2. Thuế Nhập khẩu phải nộp = 2,500,000,000 x 5% = 125,000,000 VND.</p>
+                    <p>3. Trị giá tính thuế VAT = 2,500,000,000 + 125,000,000 = 2,625,000,000 VND.</p>
+                    <p>4. Thuế VAT phải nộp = 2,625,000,000 x 10% = 262,500,000 VND.</p>
+                    <p><strong>=> Tổng số thuế phải nộp = 125,000,000 + 262,500,000 = 387,500,000 VND.</strong></p>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <h3>Bài Tập 2: Xác Định Mã HS Code Và Tiêu Chí C/O Form E</h3>
+                <p><strong>Đề bài:</strong> Doanh nghiệp B nhập khẩu mặt hàng Cáp quang dùng cho truyền thông từ Trung Quốc. Giá CIF 30,000 USD. Căn cứ Biểu thuế XNK, mã HS là 8544.70.10, thuế NK ưu đãi MFN là 10%, thuế suất ACFTA (Form E) là 0%. Hãy cho biết doanh nghiệp cần chứng từ gì để hưởng thuế 0%?</p>
+                <div class="highlight-box">
+                    <p><strong>Lời giải chi tiết:</strong></p>
+                    <p>- Để được hưởng thuế suất NK ưu đãi đặc biệt ACFTA 0%, doanh nghiệp B cần xuất trình **Chứng nhận xuất xứ hàng hóa (C/O Form E)** hợp lệ do cơ quan có thẩm quyền Trung Quốc (như Cục Kiểm nghiệm Thuế quan / CCPIT) cấp.</p>
+                    <p>- Hàng hóa phải thỏa mãn tiêu chí xuất xứ (như RVC >= 40% hoặc CTH) và tuân thủ quy tắc vận chuyển thẳng từ Trung Quốc về Việt Nam.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-test" class="tab-content">
+            <h2 class="theory-title-main">BÀI TẬP KIỂM TRA ĐÁNH GIÁ KĨ NĂNG</h2>
+
+            <div class="exercise-card">
+                <h3>Tình Huống Kiểm Tra Nghiệp Vụ Ngoại Thương (Dành cho Sinh Viên)</h3>
+                <p><strong>Đề bài:</strong> Công ty Tân Phát chuẩn bị nhập khẩu 1 lô hàng 500 chiếc Tủ lạnh dung tích 250 lít từ Thái Lan (giá FOB Bangkok: 200 USD/chiếc, cước biển Freight: 1,500 USD/lô, bảo hiểm: 200 USD/lô). Tỷ giá 25,200 VND/USD. Thuế NK MFN: 25%, Thuế NK ATIGA (Form D): 0%, VAT: 10%.</p>
+                <p><strong>Yêu cầu:</strong></p>
+                <ol>
+                    <li>Tính tổng nghĩa vụ thuế nộp theo mức MFN và theo mức ATIGA (Form D).</li>
+                    <li>Nêu các quy định kiểm tra chuyên ngành bắt buộc đối với mặt hàng Tủ lạnh nhập khẩu.</li>
+                </ol>
+            </div>
+
+            <div class="profile-section">
+                <h3>NƠI LÀM BÀI CỦA SINH VIÊN</h3>
+                <textarea class="profile-textarea" style="min-height: 200px;" placeholder="Sinh viên nhập lời giải bài kiểm tra tại đây..."></textarea>
+                <div style="margin-top: 15px; text-align: right;" class="no-print">
+                    <button type="button" class="btn-pdf" onclick="window.print()">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                        IN BÀI LÀM PDF (A4)
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 Phần Mềm Lý Thuyết & Thực Hành Nghiệp Vụ Ngoại Thương - Dành Cho Giảng Dạy & Học Tập</p>
+    </footer>
+
+    <script>
+        // XỬ LÝ CHUYỂN TAB CHÍNH
+        function switchTab(evt, tabId) {
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let content of tabContents) {
+                content.classList.remove("active");
+            }
+
+            const tabBtns = document.getElementsByClassName("tab-btn");
+            for (let btn of tabBtns) {
+                btn.classList.remove("active");
+            }
+
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // XỬ LÝ CHUYỂN SUB-TAB LÝ THUYẾT
+        function switchSubTab(evt, subTabId) {
+            const subTabContents = document.querySelectorAll("#tab-theory .sub-tab-content");
+            subTabContents.forEach(content => content.classList.remove("active"));
+
+            const subTabBtns = document.querySelectorAll("#tab-theory .sub-tab-btn");
+            subTabBtns.forEach(btn => btn.classList.remove("active"));
+
+            document.getElementById(subTabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // XỬ LÝ CHUYỂN SUB-TAB THỰC HÀNH
+        function switchPracticeSubTab(evt, subTabId) {
+            const contents = document.querySelectorAll("#tab-practice .practice-sub-content");
+            contents.forEach(content => content.classList.remove("active"));
+
+            const btns = document.querySelectorAll("#tab-practice .sub-tab-btn");
+            btns.forEach(btn => btn.classList.remove("active"));
+
+            document.getElementById(subTabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // XỬ LÝ LƯU THÔNG TIN SINH VIÊN
+        function saveStudentInfo(evt) {
+            evt.preventDefault();
+            const name = document.getElementById("student-name").value;
+            const id = document.getElementById("student-id").value;
+
+            document.getElementById("disp-name").innerText = name;
+            document.getElementById("disp-id").innerText = id;
+            document.getElementById("info-display").style.display = "block";
+
+            const nameDisplays = document.getElementsByClassName("prof-student-name-display");
+            for (let el of nameDisplays) el.innerText = name;
+
+            const idDisplays = document.getElementsByClassName("prof-student-id-display");
+            for (let el of idDisplays) el.innerText = id;
+            
+            const testIdDisp = document.getElementById("test-student-id-display");
+            if(testIdDisp) testIdDisp.innerText = id;
+
+            alert("Đã lưu thông tin sinh viên thành công!");
+        }
+
+        // HÀM TÍNH THUẾ NHẬP KHẨU ĐA TẦNG
+        function calculateFullTax() {
+            const fob = parseFloat(document.getElementById("tax_fob").value) || 0;
+            const freight = parseFloat(document.getElementById("tax_freight").value) || 0;
+            const insurance = parseFloat(document.getElementById("tax_insurance").value) || 0;
+            const exchangeRate = parseFloat(document.getElementById("tax_exchange").value) || 0;
+
+            const rateNk = (parseFloat(document.getElementById("tax_rate_nk").value) || 0) / 100;
+            const rateTtdb = (parseFloat(document.getElementById("tax_rate_ttdb").value) || 0) / 100;
+            const rateVat = (parseFloat(document.getElementById("tax_rate_vat").value) || 0) / 100;
+
+            const cifUsd = fob + freight + insurance;
+            const cifVnd = cifUsd * exchangeRate;
+
+            const taxNk = cifVnd * rateNk;
+            const taxTtdb = (cifVnd + taxNk) * rateTtdb;
+            const taxVat = (cifVnd + taxNk + taxTtdb) * rateVat;
+            const taxTotal = taxNk + taxTtdb + taxVat;
+
+            document.getElementById("res_cif_usd").innerText = cifUsd.toLocaleString('en-US') + " USD";
+            document.getElementById("res_cif_vnd").innerText = Math.round(cifVnd).toLocaleString('vi-VN') + " VND";
+            document.getElementById("res_tax_nk").innerText = Math.round(taxNk).toLocaleString('vi-VN') + " VND";
+            document.getElementById("res_tax_ttdb").innerText = Math.round(taxTtdb).toLocaleString('vi-VN') + " VND";
+            document.getElementById("res_tax_vat").innerText = Math.round(taxVat).toLocaleString('vi-VN') + " VND";
+            document.getElementById("res_tax_total").innerText = Math.round(taxTotal).toLocaleString('vi-VN') + " VND";
+        }
+
+        // HÀM TÍNH ĐIỂM SCORECARD
+        function calculateScorecard() {
+            const s1 = parseFloat(document.getElementById("sc_score_1").value) || 0;
+            const s2 = parseFloat(document.getElementById("sc_score_2").value) || 0;
+            const s3 = parseFloat(document.getElementById("sc_score_3").value) || 0;
+            const s4 = parseFloat(document.getElementById("sc_score_4").value) || 0;
+            const s5 = parseFloat(document.getElementById("sc_score_5").value) || 0;
+
+            const w1 = s1 * 0.3;
+            const w2 = s2 * 0.3;
+            const w3 = s3 * 0.2;
+            const w4 = s4 * 0.1;
+            const w5 = s5 * 0.1;
+
+            document.getElementById("sc_weighted_1").innerText = w1.toFixed(1);
+            document.getElementById("sc_weighted_2").innerText = w2.toFixed(1);
+            document.getElementById("sc_weighted_3").innerText = w3.toFixed(1);
+            document.getElementById("sc_weighted_4").innerText = w4.toFixed(1);
+            document.getElementById("sc_weighted_5").innerText = w5.toFixed(1);
+
+            const total = w1 + w2 + w3 + w4 + w5;
+            document.getElementById("sc_total_score").innerText = total.toFixed(1) + " / 10";
+
+            let conclusion = "";
+            if (total >= 8.0) {
+                conclusion = "Xếp loại A - Lựa chọn làm nhà cung cấp ưu tiên (Preferred Supplier)";
+            } else if (total >= 6.5) {
+                conclusion = "Xếp loại B - Nhà cung cấp đạt yêu cầu, cần theo dõi thêm";
+            } else {
+                conclusion = "Xếp loại C - Không đạt tiêu chuẩn mua hàng";
+            }
+            document.getElementById("sc_conclusion").value = conclusion;
+        }
+
+        // HÀM TẢI CHI TIẾT NỘI DUNG LÝ THUYẾT (CHI TIẾT MỚI BỔ SUNG ĐẦY ĐỦ)
+        function loadTheoryDetail(code, cardElem) {
+            if (cardElem) {
+                const parentGrid = cardElem.parentElement;
+                const cards = parentGrid.getElementsByClassName("topic-card");
+                for (let c of cards) c.classList.remove("active");
+                cardElem.classList.add("active");
+            }
+
+            let targetDivId = "";
+            if (code.startsWith("1.1.")) targetDivId = "detail-area-ch1";
+            else if (code.startsWith("1.2.")) targetDivId = "detail-area-ch2";
+            else if (code.startsWith("1.3.")) targetDivId = "detail-area-ch3";
+            else if (code.startsWith("1.4.")) targetDivId = "detail-area-ch4";
+
+            const targetDiv = document.getElementById(targetDivId);
+            if (!targetDiv) return;
+
+            let html = "";
+
+            if (code === '1.1.1') {
+                html = `
+                    <div class="simulation-box">
+                        <div class="simulation-title">Sơ Đồ Luồng Giao Dịch Thương Mại Quốc Tế</div>
+                        <div class="sim-flow">
+                            <div class="sim-node">Người Bán (Exporter)</div>
+                            <div class="sim-arrow">➔</div>
+                            <div class="sim-node">Hải Quan Cảng Xuất</div>
+                            <div class="sim-arrow">➔</div>
+                            <div class="sim-node pulse-active">Vận Tải Quốc Tế</div>
+                            <div class="sim-arrow">➔</div>
+                            <div class="sim-node">Hải Quan Cảng Nhập</div>
+                            <div class="sim-arrow">➔</div>
+                            <div class="sim-node">Người Mua (Importer)</div>
+                        </div>
+                    </div>
+                    <h3 class="theory-h2">1. Khái niệm và Đặc điểm Thương mại Quốc tế (TMQT)</h3>
+                    <p><strong>Thương mại quốc tế (International Trade)</strong> là sự trao đổi hàng hóa, dịch vụ và tài sản trí tuệ giữa các quốc gia, tuân thủ theo các quy định pháp luật nội địa và điều ước/thông lệ quốc tế.</p>
+                    
+                    <h3 class="theory-h3">Các đặc điểm cốt lõi của giao dịch TMQT:</h3>
+                    <ul>
+                        <li><strong>Chủ thể ở các quốc gia khác nhau:</strong> Bên bán (Exporter) và bên mua (Importer) có trụ sở thương mại đặt tại các vùng lãnh thổ/quốc gia khác nhau.</li>
+                        <li><strong>Hàng hóa di chuyển qua biên giới:</strong> Hàng hóa trải qua thủ tục xuất khẩu tại quốc gia đi và nhập khẩu tại quốc gia đến.</li>
+                        <li><strong>Đồng tiền thanh toán ngoại tệ:</strong> Thường sử dụng các đồng tiền thanh toán tự do chuyển đổi (USD, EUR, JPY, CNY...) khác với đồng nội tệ.</li>
+                        <li><strong>Chịu tác động của hai hệ thống pháp luật:</strong> Phải tuân thủ cả Luật pháp nước xuất khẩu, Luật pháp nước nhập khẩu và Công ước quốc tế (như CISG 1980, Incoterms).</li>
+                        <li><strong>Rủi ro cao hơn thương mại nội địa:</strong> Bao gồm rủi ro vận tải đường biển, rủi ro biến động tỷ giá hối đoái, rủi ro thanh toán và rủi ro địa chính trị.</li>
+                    </ul>
+
+                    <h3 class="theory-h2">2. Vai trò của Ngoại thương đối với Nền Kinh tế</h3>
+                    <ul>
+                        <li><strong>Tăng trưởng GDP & Mở rộng thị trường:</strong> Giúp doanh nghiệp vượt qua giới hạn của thị trường nội địa, gia tăng sản lượng và tối ưu hóa chi phí sản xuất theo quy mô.</li>
+                        <li><strong>Thu hút ngoại tệ & Cân đối cán cân thương mại:</strong> Xuất khẩu mang lại nguồn ngoại tệ mạnh giúp củng cố dự trữ ngoại hối quốc gia.</li>
+                        <li><strong>Thúc đẩy chuyển giao công nghệ:</strong> Nhập khẩu máy móc, thiết bị hiện đại từ các nước phát triển giúp nâng cao năng suất lao động trong nước.</li>
+                    </ul>
+
+                    <div class="example-box">
+                        <strong>Ví dụ thực tế minh họa:</strong> Công ty Vinamilk xuất khẩu sữa bột sang thị trường Trung Đông. Lô hàng được sản xuất tại Bình Dương, làm thủ tục hải quan xuất khẩu tại Cảng Cát Lái (TP.HCM), vận chuyển đường biển sang cảng Jebel Ali (UAE) và thanh toán bằng đồng USD qua thư tín dụng (L/C). Đây là giao dịch TMQT điển hình vượt qua biên giới quốc gia.
+                    </div>
+                `;
+            } else if (code === '1.1.2') {
+                html = `
+                    <div class="simulation-box">
+                        <div class="simulation-title">Sơ Đồ Mô Phỏng Hình Thức Gia Công Quốc Tế</div>
+                        <div class="sim-flow">
+                            <div class="sim-node">Bên Đặt Gia Công (Nước Ngoài)</div>
+                            <div class="sim-arrow">➔ Cung cấp Nguyên liệu ➔</div>
+                            <div class="sim-node pulse-active">Doanh Nghiệp Gia Công (Việt Nam)</div>
+                            <div class="sim-arrow">➔ Giao Thành Phẩm ➔</div>
+                            <div class="sim-node">Thị Trường Quốc Tế</div>
+                        </div>
+                    </div>
+                    <h3 class="theory-h2">Phân Loại Các Hình Thức Giao Dịch Ngoại Thương Chủ Yếu</h3>
+                    
+                    <h3 class="theory-h3">1. Xuất nhập khẩu Trực tiếp (Direct Import/Export)</h3>
+                    <p>Doanh nghiệp tự mình tìm kiếm đối tác, đàm phán, ký kết hợp đồng thương mại và trực tiếp chịu trách nhiệm làm thủ tục hải quan, giao nhận hàng hóa.</p>
+
+                    <h3 class="theory-h3">2. Xuất nhập khẩu Ủy thác (Entrusted Import/Export)</h3>
+                    <p>Doanh nghiệp không tự mình giao dịch mà ủy thác cho một đơn vị kinh doanh dịch vụ logistics/ngoại thương có kinh nghiệm đứng tên thực hiện giao dịch thông qua Hợp đồng ủy thác.</p>
+
+                    <h3 class="theory-h3">3. Gia công Quốc tế (International Processing)</h3>
+                    <p>Hình thức trong đó bên nhận gia công nhập khẩu nguyên liệu/vật tư từ bên đặt gia công (hoặc chỉ định) để chế biến, lắp ráp thành thành phẩm và xuất khẩu trả lại cho bên đặt gia công để nhận tiền thù lao (phí gia công).</p>
+
+                    <h3 class="theory-h3">4. Tạm nhập - Tái xuất & Tạm xuất - Tái nhập</h3>
+                    <ul>
+                        <li><strong>Tạm nhập - Tái xuất:</strong> Hàng hóa đưa từ nước ngoài vào Việt Nam, gửi kho bảo quản hoặc sơ chế rồi xuất khẩu sang nước thứ ba (không làm thủ tục nhập khẩu tiêu dùng).</li>
+                        <li><strong>Tạm xuất - Tái nhập:</strong> Đưa hàng hóa trong nước ra nước ngoài (để triển lãm, sửa chữa, cho thuê) sau đó đưa trở lại Việt Nam.</li>
+                    </ul>
+
+                    <div class="example-box">
+                        <strong>Ví dụ thực tế:</strong> Công ty May 10 ký hợp đồng gia công may mặc với hãng Nike (Mỹ). Nike gửi vải và phụ liệu từ Hàn Quốc sang Việt Nam. May 10 tiến hành cắt may thành áo đấu và xuất khẩu ngược lại thị trường Mỹ để nhận phí gia công (CMT - Cut, Make, Trim).
+                    </div>
+                `;
+            } else if (code === '1.1.3') {
+                html = `
+                    <div class="simulation-box">
+                        <div class="simulation-title">Quy Trình Xử Lý Thông Quan Trên Cổng Một Cửa Quốc Gia (VNSW)</div>
+                        <div class="sim-flow">
+                            <div class="sim-node">Doanh Nghiệp (DN)</div>
+                            <div class="sim-arrow">➔ Khai báo 1 hồ sơ ➔</div>
+                            <div class="sim-node pulse-active">Cổng VNSW (vnsw.gov.vn)</div>
+                            <div class="sim-arrow">➔ Phân luồng dữ liệu ➔</div>
+                            <div class="sim-node">Bộ Ngành / Hải Quan</div>
+                        </div>
+                    </div>
+                    <h3 class="theory-h2">Cổng Thông Tin Một Cửa Quốc Gia (National Single Window - VNSW)</h3>
+                    
+                    <h3 class="theory-h3">1. Khái niệm và Mục đích thành lập</h3>
+                    <p>Cổng thông tin một cửa quốc gia là hệ thống thông tin tích hợp tập trung, cho phép người khai hải quan gửi thông tin, chứng từ điện tử để thực hiện thủ tục hải quan và thủ tục của các cơ quan quản lý nhà nước liên quan đến hàng hóa xuất khẩu, nhập khẩu.</p>
+
+                    <h3 class="theory-h3">2. Lợi ích vượt trội của VNSW đối với Doanh nghiệp</h3>
+                    <ul>
+                        <li><strong>Cắt giảm thời gian & chi phí:</strong> Doanh nghiệp chỉ cần nộp hồ sơ điện tử 1 lần duy nhất thay vì phải đi nộp hồ sơ giấy tại nhiều Bộ ngành (Bộ Y tế, Bộ Công Thương, Bộ KH&CN...).</li>
+                        <li><strong>Minh bạch hóa quy trình:</strong> Theo dõi tiến độ phê duyệt hồ sơ trực tuyến theo thời gian thực (Real-time).</li>
+                        <li><strong>Đồng bộ với Hệ thống Hải quan VNACCS/VCIS:</strong> Kết quả kiểm tra chuyên ngành được tự động truyền sang cơ quan Hải quan để quyết định thông quan hàng hóa.</li>
+                    </ul>
+
+                    <div class="example-box">
+                        <strong>Ví dụ thực tế:</strong> Khi nhập khẩu lô hàng Thực phẩm bảo vệ sức khỏe, doanh nghiệp nộp Hồ sơ Đăng ký Kiểm tra chất lượng ATTP lên hệ thống VNSW. Bộ Y tế duyệt hồ sơ và trả kết quả điện tử trực tiếp lên hệ thống. Chi cục Hải quan cửa khẩu căn cứ kết quả này để thông quan cho lô hàng mà doanh nghiệp không cần nộp bản giấy.
+                    </div>
+                `;
+            } else if (code === '1.2.1a') {
+                html = `
+                    <div class="simulation-box">
+                        <div class="simulation-title">Cấu Trúc Của Một Mã HS Code 8 Chữ Số Cho Hàng Hóa XNK</div>
+                        <div class="sim-flow">
+                            <div class="sim-node">Chương (2 số)<br><b>Chương 84</b></div>
+                            <div class="sim-arrow">+</div>
+                            <div class="sim-node">Nhóm (2 số)<br><b>Nhóm 84.15</b></div>
+                            <div class="sim-arrow">+</div>
+                            <div class="sim-node">Phân nhóm (2 số)<br><b>8415.10</b></div>
+                            <div class="sim-arrow">+</div>
+                            <div class="sim-node pulse-active">Phân mã Quốc gia (2 số)<br><b>8415.10.10</b></div>
+                        </div>
+                    </div>
+                    <h3 class="theory-h2">Cấu Trúc Hệ Thống Hài Hòa Mô Tả Và Mã Hóa Hàng Hóa (HS Code)</h3>
+                    
+                    <h3 class="theory-h3">1. Bản chất của Mã HS (Harmonized System Code)</h3>
+                    <p>Mã HS là hệ thống mã số phân loại hàng hóa do Tổ chức Hải quan Thế giới (WCO) phát hành, được áp dụng thống nhất trên toàn thế giới nhằm xác định thuế suất, chính sách quản lý và thống kê thương mại.</p>
+
+                    <h3 class="theory-h3">2. Giải mã cấu trúc 8 chữ số tại Việt Nam</h3>
+                    <ul>
+                        <li><strong>2 chữ số đầu (Chương - Chapter):</strong> Xác định ngành hàng lớn (VD: Chương 84 - Lò phản ứng hạt nhân, nồi hơi, máy và thiết bị cơ khí).</li>
+                        <li><strong>4 chữ số đầu (Nhóm - Heading):</strong> Phân loại nhóm hàng cụ thể (VD: Nhóm 84.15 - Máy điều hòa không khí).</li>
+                        <li><strong>6 chữ số đầu (Phân nhóm - Subheading):</strong> Tiêu chuẩn chung thống nhất trên toàn thế giới theo Công ước HS.</li>
+                        <li><strong>8 chữ số (Mã chi tiết quốc gia):</strong> Quy định riêng của Danh mục hàng hóa XNK Việt Nam & Biểu thuế ASEAN (AHTN) phục vụ tính thuế.</li>
+                    </ul>
+
+                    <div class="example-box">
+                        <strong>Ví dụ thực tế:</strong> Mã HS <b>8415.10.10</b> (Máy điều hòa không khí loại hai khối độc lập Dùng cho gia đình):
+                        <br>- 84: Chương 84 (Thiết bị cơ khí)
+                        <br>- 84.15: Nhóm máy điều hòa không khí
+                        <br>- 8415.10: Phân nhóm dạng cửa hoặc tường
+                        <br>- 8415.10.10: Mã chi tiết của Việt Nam dùng cho loại công suất <= 26.38 kW.
+                    </div>
+                `;
+            } else if (code === '1.2.1b') {
+                html = `
+                    <h3 class="theory-h2">6 Quy Tắc Tổng Quát Giải Thích Hệ Thống HS (General Rules - GIR)</h3>
+                    <p>Để phân loại chính xác một mặt hàng vào một mã HS duy nhất, cán bộ Hải quan và Chuyên viên Ngoại thương phải áp dụng tuần tự 6 Quy tắc vàng sau:</p>
+
+                    <div class="highlight-box">
+                        <strong>Quy tắc 1: Phân loại theo Tên nhóm và Chú giải Chương/Phần</strong>
+                        <br>Tên của các Phần, Chương chỉ mang tính chất định hướng. Phân loại pháp lý được xác định căn cứ vào nội dung của Tên nhóm hàng và các Chú giải Phần/Chương tương ứng.
+                    </div>
+
+                    <div class="highlight-box">
+                        <strong>Quy tắc 2: Hàng chưa hoàn chỉnh & Hợp chất/Hỗn hợp</strong>
+                        <br>- <i>Quy tắc 2(a):</i> Hàng chưa hoàn chỉnh nhưng đã có đặc trưng cơ bản của hàng hoàn chỉnh thì phân loại như hàng hoàn chỉnh (VD: Xe đạp tháo rời từng bộ phận).
+                        <br>- <i>Quy tắc 2(b):</i> Hỗn hợp các chất được phân loại theo chất cơ bản nhất.
+                    </div>
+
+                    <div class="highlight-box">
+                        <strong>Quy tắc 3: Hàng hóa có thể thuộc nhiều nhóm</strong>
+                        <br>- <i>3(a):</i> Nhóm có mô tả đặc trưng nhất sẽ ưu tiên hơn nhóm mô tả khái quát.
+                        <br>- <i>3(b):</i> Hàng hợp bộ/hỗn hợp phân loại theo vật liệu/bộ phận tạo nên <b>đặc tính cơ bản</b> của sản phẩm.
+                        <br>- <i>3(c):</i> Nếu không áp dụng được 3(a) và 3(b), phân loại vào nhóm có <b>thứ tự cuối cùng</b> trong số các nhóm cùng xem xét.
+                    </div>
+
+                    <div class="highlight-box">
+                        <strong>Quy tắc 4: Phân loại theo hàng hóa giống chúng nhất</strong>
+                        <br>Áp dụng cho các mặt hàng mới chưa có trong danh mục: Phân loại vào nhóm hàng tương tự nhất về công dụng, bản chất.
+                    </div>
+
+                    <div class="highlight-box">
+                        <strong>Quy tắc 5: Bao bì, hộp đựng chuyên dụng</strong>
+                        <br>Hộp đựng đàn guitar, bao đựng máy ảnh chế tạo riêng được phân loại cùng với sản phẩm bên trong nếu bán cùng.
+                    </div>
+
+                    <div class="highlight-box">
+                        <strong>Quy tắc 6: Phân loại ở cấp độ Phân nhóm (Subheading)</strong>
+                        <br>Việc phân loại vào các phân nhóm của cùng một nhóm phải tuân thủ theo các quy tắc 1 đến 5 ở cấp độ phân nhóm.
+                    </div>
+                `;
+            } else if (code === '1.2.1c') {
+                html = `
+                    <h3 class="theory-h2">Phân Loại Các Mức Thuế Suất Nhập Khẩu Tại Việt Nam</h3>
+                    <p>Theo Luật Thuế xuất khẩu, thuế nhập khẩu hiện hành, hàng hóa nhập khẩu vào Việt Nam chịu 1 trong 3 cấp độ thuế suất sau:</p>
+
+                    <h3 class="theory-h3">1. Thuế suất Ưu đãi Thông thường (MFN / Most Favored Nation)</h3>
+                    <ul>
+                        <li>Áp dụng cho hàng hóa có xuất xứ từ nước, nhóm nước hoặc vùng lãnh thổ thực hiện đối xử tối惠 quốc (MFN) trong quan hệ thương mại với Việt Nam (như các nước thành viên WTO).</li>
+                        <li>Biểu thuế ban hành kèm theo Nghị định 26/2023/NĐ-CP.</li>
+                    </ul>
+
+                    <h3 class="theory-h3">2. Thuế suất Ưu đãi Đặc biệt (Special Preferential Tariff)</h3>
+                    <ul>
+                        <li>Áp dụng cho hàng hóa nhập khẩu từ các quốc gia ký kết Hiệp định Thương mại Tự do (FTA) song phương hoặc đa phương với Việt Nam (như ATIGA, ACFTA, EVFTA, CPTPP...).</li>
+                        <li><strong>Điều kiện áp dụng:</strong> Doanh nghiệp phải xuất trình <b>Giấy chứng nhận xuất xứ hàng hóa (C/O)</b> hợp lệ (VD: C/O Form D, Form E, Form EUR.1). Mức thuế suất này thường là 0% hoặc rất thấp.</li>
+                    </ul>
+
+                    <h3 class="theory-h3">3. Thuế suất Thông thường (Ordinary Tariff)</h3>
+                    <ul>
+                        <li>Áp dụng cho hàng hóa từ các nước không thỏa thuận MFN hay FTA với Việt Nam. Mức thuế bằng 150% thuế suất MFN.</li>
+                    </ul>
+
+                    <div class="example-box">
+                        <strong>So sánh ví dụ thực tế:</strong> Nhập khẩu Ô tô nguyên chiếc:
+                        <br>- Nhập từ Mỹ (chỉ có MFN): Chịu thuế suất NK MFN 70%.
+                        <br>- Nhập từ Đức (có Hiệp định EVFTA + C/O Form EUR.1): Chịu thuế ưu đãi đặc biệt EVFTA giảm còn ~20-30% theo lộ trình cắt giảm.
+                    </div>
+                `;
+            } else if (code === '1.3.1') {
+                html = `
+                    <div class="simulation-box">
+                        <div class="simulation-title">Quy Trình Khảo Sát & Đàm Phán Trên Sàn Thương Mại B2B</div>
+                        <div class="sim-flow">
+                            <div class="sim-node">Đăng RFQ (Yêu cầu báo giá)</div>
+                            <div class="sim-arrow">➔</div>
+                            <div class="sim-node pulse-active">Nhận Báo Giá (Quotation)</div>
+                            <div class="sim-arrow">➔</div>
+                            <div class="sim-node">Yêu Cầu Hàng Mẫu (Sample)</div>
+                            <div class="sim-arrow">➔</div>
+                            <div class="sim-node">Chốt Hợp Đồng</div>
+                        </div>
+                    </div>
+                    <h3 class="theory-h2">Nghiên Cứu Thị Trường & Thu Thập Thông Tin Trên Sàn B2B</h3>
+                    
+                    <h3 class="theory-h3">1. Vai trò của Sàn Thương mại Điện tử B2B (Business-to-Business)</h3>
+                    <p>Các sàn B2B như Alibaba.com, GlobalSources.com, ThomasNet là kênh tìm kiếm nhà cung cấp (Suppliers) và khách hàng mua buôn (Buyers) phổ biến nhất hiện nay trong thương mại quốc tế.</p>
+
+                    <h3 class="theory-h3">2. Các bước thu thập thông tin nhà cung cấp trên B2B</h3>
+                    <ol>
+                        <li><strong>Gửi RFQ (Request for Quotation):</strong> Đưa ra yêu cầu cụ thể về tiêu chuẩn kỹ thuật, số lượng đặt hàng tối thiểu (MOQ), phương thức giao hàng (Incoterms) và yêu cầu báo giá.</li>
+                        <li><strong>Phân tích báo giá:</strong> So sánh giá FOB/CIF, thời gian sản xuất (Lead time), các chứng chỉ chất lượng (ISO, CE, FDA) giữa các nhà cung cấp.</li>
+                        <li><strong>Đánh giá gian hàng:</strong> Kiểm tra số năm hoạt động, danh hiệu (Gold Supplier, Verified Supplier), kim ngạch xuất khẩu và đánh giá từ các người mua trước (Reviews).</li>
+                    </ol>
+                `;
+            } else if (code === '1.3.2') {
+                html = `
+                    <h3 class="theory-h2">Xác Minh Năng Lực Pháp Lý & Đánh Giá Tín Nhiệm Đối Tác (Credit Check)</h3>
+                    <p>Trước khi ký hợp đồng thương mại trị giá lớn, nhà nhập khẩu bắt buộc phải thẩm định năng lực đối tác để phòng tránh rủi ro lừa đảo thương mại quốc tế.</p>
+
+                    <h3 class="theory-h3">1. Các nội dung bắt buộc trong Hồ sơ Credit Check</h3>
+                    <ul>
+                        <li><strong>Giấy phép kinh doanh (Business License):</strong> Tra cứu trực tiếp trên Cổng thông tin đăng ký doanh nghiệp quốc gia của nước chủ nhà (VD: Cổng GSXT của Trung Quốc).</li>
+                        <li><strong>Báo cáo tài chính & Tín nhiệm ngân hàng:</strong> Đánh giá khả năng thanh toán, dư nợ tài chính thông qua các tổ chức xếp hạng uy tín (như Dun & Bradstreet - D&B).</li>
+                        <li><strong>Năng lực nhà máy thực tế (Factory Audit):</strong> Thuê các công ty kiểm định độc lập (SGS, Bureau Veritas, Intertek) đến tận nhà máy kiểm tra dây chuyền sản xuất và hệ thống quản lý chất lượng.</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <strong>Cảnh báo rủi ro thực tế:</strong> Doanh nghiệp Việt Nam thường gặp rủi ro khi đối tác yêu cầu đặt cọc 30% tiền hàng vào tài khoản ngân hàng cá nhân hoặc tài khoản ở nước thứ ba (Offshore). Tuyệt đối chỉ thanh toán vào tài khoản chính thức của Công ty đã được xác minh pháp lý.
+                    </div>
+                `;
+            } else if (code === '1.4.1') {
+                html = `
+                    <h3 class="theory-h2">Vị Trí, Vai Trò Môn Học Nghiệp Vụ Ngoại Thương</h3>
+                    
+                    <h3 class="theory-h3">1. Mục tiêu đào tạo của Học phần</h3>
+                    <p>Môn học trang bị cho sinh viên hệ thống kiến thức toàn diện từ lý thuyết đến kỹ năng thực hành để thực hiện thành thạo các khâu trong quy trình xuất nhập khẩu hàng hóa:</p>
+                    <ul>
+                        <li>Tra cứu và giải trình mã HS Code, tính toán chính xác chi phí thuế XNK.</li>
+                        <li>Soạn thảo và đàm phán Hợp đồng ngoại thương (Sales Contract) theo tiêu chuẩn Incoterms 2020.</li>
+                        <li>Lập bộ chứng từ xuất nhập khẩu (Invoice, Packing List, C/O, Bill of Lading...).</li>
+                        <li>Thực hiện thủ tục khai báo Hải quan điện tử trên hệ thống VNACCS/VCIS.</li>
+                    </ul>
+
+                    <h3 class="theory-h3">2. Cơ hội nghề nghiệp thực tế</h3>
+                    <p>Sau khi hoàn thành môn học, sinh viên có đủ năng lực đảm nhận các vị trí chuyên viên tại các Doanh nghiệp XNK, Công ty Logistics, Hãng tàu, Đại lý Hải quan, Ngân hàng thương mại (Bộ phận Thanh toán quốc tế) và Các cơ quan quản lý nhà nước về thương mại.</p>
+                `;
+            }
+
+            targetDiv.innerHTML = html;
+        }
+
+        // KHỞI TẠO MẶC ĐỊNH KHI TẢI TRANG
+        window.onload = function() {
+            loadTheoryDetail('1.1.1');
+            calculateFullTax();
+            calculateScorecard();
+
+            const today = new Date();
+            const dd = String(today.getDate()).padStart(2, '0');
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const yyyy = today.getFullYear();
+            const dateStr = dd + '/' + mm + '/' + yyyy;
+
+            const dateDisplays = document.getElementsByClassName("prof-date-display");
+            for (let el of dateDisplays) {
+                el.innerText = dateStr;
+            }
+        };
+    </script>
+</body>
+</html>
