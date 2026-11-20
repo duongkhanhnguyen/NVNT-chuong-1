@@ -658,6 +658,209 @@
         .print-header-student {
             display: none;
         }
+
+        /* --- BÀI KIỂM TRA CHƯƠNG (40 CÂU) --- */
+        .test-intro {
+            background-color: var(--light-yellow);
+            border: 2px solid var(--border-yellow);
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+        }
+
+        .test-intro table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .test-intro th, .test-intro td {
+            border: 1px solid #CBD5E1;
+            padding: 6px 10px;
+            text-align: center;
+            background: #fff;
+        }
+
+        .test-intro th {
+            background: var(--primary-blue);
+            color: #fff;
+        }
+
+        .test-action-bar {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-between;
+            background: #FFFFFF;
+            border: 2px solid var(--accent-blue);
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .test-action-bar .progress-text {
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+
+        .test-btn {
+            border: none;
+            padding: 9px 18px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            color: #fff;
+            transition: background 0.2s;
+        }
+
+        .test-btn-grade { background-color: var(--bright-red); }
+        .test-btn-grade:hover:not(:disabled) { background-color: var(--hover-red); }
+        .test-btn-grade:disabled { background-color: #9CA3AF; cursor: not-allowed; }
+        .test-btn-reset { background-color: #64748B; }
+        .test-btn-reset:hover { background-color: #475569; }
+
+        .test-part-title {
+            color: var(--primary-blue);
+            background-color: var(--light-yellow);
+            border-left: 5px solid var(--bright-red);
+            padding: 10px 14px;
+            margin: 25px 0 6px 0;
+            font-size: 16px;
+        }
+
+        .test-part-title span {
+            font-size: 13px;
+            font-weight: normal;
+            color: #475569;
+        }
+
+        .test-part-note {
+            font-size: 14px;
+            font-style: italic;
+            color: #475569;
+        }
+
+        .q-item {
+            border: 1px solid #E2E8F0;
+            border-radius: 6px;
+            padding: 14px;
+            margin: 12px 0;
+            background-color: #FAFAFA;
+        }
+
+        .q-item.correct { border-color: #16A34A; background-color: #F0FDF4; }
+        .q-item.wrong { border-color: var(--bright-red); background-color: #FEF2F2; }
+        .q-item.essay-graded { border-color: var(--accent-blue); background-color: #F0F9FF; }
+
+        .q-head {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .q-num {
+            font-weight: bold;
+            color: var(--bright-red);
+        }
+
+        .q-pts {
+            font-size: 12px;
+            color: #64748B;
+        }
+
+        .q-text {
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .q-opt {
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+            padding: 6px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            line-height: 1.5;
+        }
+
+        .q-opt:hover { background-color: #EFF6FF; }
+        .q-opt.is-key { background-color: #DCFCE7; }
+        .q-opt input { margin-top: 5px; }
+
+        .q-calc-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .q-calc-row .q-calc { max-width: 260px; flex: 0 1 260px; min-width: 160px; }
+        .q-unit { font-weight: bold; color: var(--primary-blue); }
+
+        .q-feedback {
+            display: none;
+            margin-top: 10px;
+            padding: 10px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 1.6;
+            background: #FFFFFF;
+            border: 1px dashed #94A3B8;
+        }
+
+        .q-feedback ul, .q-feedback ol { margin-bottom: 6px; }
+        .q-item.graded .q-feedback { display: block; }
+        .fb-ok { color: #15803D; }
+        .fb-bad { color: var(--bright-red); }
+
+        .test-result {
+            display: none;
+            background: #FFFFFF;
+            border: 3px solid var(--bright-red);
+            border-radius: 8px;
+            padding: 18px 22px;
+            margin: 15px 0;
+        }
+
+        .test-result h3 { color: var(--bright-red); margin-bottom: 10px; }
+        .test-score-big { font-size: 16px; margin: 12px 0; }
+        .test-score-big span { color: var(--bright-red); font-weight: bold; font-size: 22px; }
+
+        @media print {
+            .q-item { page-break-inside: avoid; background: #FFFFFF !important; }
+            .test-part-title { background: transparent !important; color: #000 !important; font-size: 12pt !important; }
+            .test-intro { background: transparent !important; border: 1px solid #666 !important; }
+            .test-result { border: 1px solid #000 !important; }
+            .q-opt input { margin-top: 3px; }
+        }
+
+        .q-print-answer { display: none; }
+        .q-opt.chosen { font-weight: bold; background-color: #DBEAFE; }
+        .test-btn-lect { background-color: #1E3A8A; }
+        .test-btn-lect:hover { background-color: #172554; }
+        .btn-pdf:disabled { background-color: #9CA3AF; cursor: not-allowed; }
+        .lect-banner { background: #FEE2E2; border: 2px solid var(--bright-red); color: var(--bright-red); font-weight: bold; padding: 10px 14px; border-radius: 6px; margin-top: 10px; }
+
+        @media print {
+            .lect-banner { display: none !important; }
+            .test-intro { display: none !important; }
+            .test-result { page-break-inside: avoid; }
+            .q-opt { background: transparent !important; }
+            .q-opt.chosen { font-weight: bold; border: 1px solid #000; }
+            .q-opt.chosen span { text-decoration: underline; }
+            .q-work, .q-essay { display: none !important; }
+            .q-print-answer { display: block !important; white-space: pre-wrap; border: 1px solid #666; padding: 6px 8px; margin-top: 6px; font-size: 11pt; min-height: 24px; }
+            .q-print-answer:empty { display: none !important; }
+            .q-calc { border: none !important; border-bottom: 1px dotted #444 !important; font-weight: bold; }
+        }
     </style>
 </head>
 <body>
@@ -1223,6 +1426,50 @@
         <section id="tab-test" class="tab-content">
             <h2 class="theory-title-main">BÀI TẬP KIỂM TRA ĐÁNH GIÁ KĨ NĂNG</h2>
 
+            <div class="print-header-student">
+                <h2>BÀI KIỂM TRA CHƯƠNG 1 - TỔNG QUAN NGHIỆP VỤ NGOẠI THƯƠNG</h2>
+                <p><strong>Sinh viên thực hiện:</strong> <span class="prof-student-name-display">....................</span> | <strong>Mã SV:</strong> <span class="prof-student-id-display">....................</span></p>
+                <p><strong>Ngày làm bài:</strong> <span class="prof-date-display"></span></p>
+            </div>
+
+            <div class="test-intro">
+                <h3 style="color: var(--primary-blue); margin-bottom: 6px;">BÀI KIỂM TRA CHƯƠNG 1: TỔNG QUAN NGHIỆP VỤ NGOẠI THƯƠNG (40 CÂU)</h3>
+                <p style="margin-bottom: 4px;"><strong>Thời gian:</strong> 60 phút &nbsp;|&nbsp; <strong>Thang điểm:</strong> 100 &nbsp;|&nbsp; <strong>Nội dung:</strong> tổng quan ngoại thương, hình thức giao dịch, VNSW, HS Code, thuế XNK, sàn B2B và thẩm định đối tác.</p>
+                <p class="no-print" style="margin-bottom: 8px;"><strong>Cách làm bài:</strong> nhập Họ tên, MSSV ở tab THÔNG TIN CHUNG &rarr; làm 40 câu &rarr; bấm <strong>HOÀN THÀNH BÀI LÀM</strong> để xem điểm phần trắc nghiệm/tính toán (đáp án chỉ dành cho giảng viên) &rarr; bấm <strong>XUẤT PDF NỘP BÀI (A4)</strong>, chọn "Lưu dưới dạng PDF" rồi nộp file cho giảng viên.</p>
+                <p class="no-print" style="margin-bottom: 4px;"><strong>Sinh viên:</strong> <span class="prof-student-name-display">(chưa nhập - xem tab THÔNG TIN CHUNG)</span> &nbsp;|&nbsp; <strong>MSSV:</strong> <span class="prof-student-id-display">....................</span></p>
+                <table>
+                    <thead>
+                        <tr><th>Phần</th><th>Dạng câu hỏi</th><th>Số câu</th><th>Điểm/câu</th><th>Tổng điểm</th><th>Hình thức chấm</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>I</td><td>Trắc nghiệm lý thuyết</td><td>20</td><td>2,0</td><td>40</td><td>Tự động</td></tr>
+                        <tr><td>II</td><td>Đúng / Sai</td><td>4</td><td>2,0</td><td>8</td><td>Tự động</td></tr>
+                        <tr><td>III</td><td>Tính toán (CIF, thuế NK, TTĐB, VAT, Scorecard)</td><td>8</td><td>4,0</td><td>32</td><td>Tự động</td></tr>
+                        <tr><td>IV</td><td>Giải thích - Tự luận - Tình huống</td><td>8</td><td>2,5</td><td>20</td><td>Giảng viên chấm</td></tr>
+                        <tr><td colspan="2"><strong>Tổng</strong></td><td><strong>40</strong></td><td>-</td><td><strong>100</strong></td><td>-</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="lect-banner" id="lect-banner" style="display:none;">CHẾ ĐỘ GIẢNG VIÊN: đang hiển thị đáp án, lời giải và gợi ý chấm tự luận. Không đưa màn hình này cho sinh viên.</div>
+
+            <div class="test-action-bar test-action-bar-top">
+                <span class="progress-text" id="test-progress">Đã làm: 0 / 40 câu</span>
+                <span>
+                    <button type="button" class="test-btn test-btn-grade" id="btn-finish" onclick="finishTest()">HOÀN THÀNH BÀI LÀM</button>
+                    <button type="button" class="btn-pdf" id="btn-pdf" onclick="exportTestPdf()" disabled>XUẤT PDF NỘP BÀI (A4)</button>
+                    <button type="button" class="test-btn test-btn-reset" id="btn-reset" onclick="resetTest()" style="display:none;">XÓA BÀI / LÀM LẠI</button>
+                    <button type="button" class="test-btn test-btn-lect" id="btn-lect" onclick="unlockLecturer()">GIẢNG VIÊN</button>
+                </span>
+            </div>
+
+            <div id="test-result" class="test-result"></div>
+
+            <div id="test-container"></div>
+
+            <div class="no-print">
+            <h3 class="test-part-title" style="margin-top: 35px;">BÀI TẬP TỰ LUYỆN BỔ SUNG (không tính vào 40 câu)</h3>
+
             <div class="exercise-card">
                 <h3>Tình Huống Kiểm Tra Nghiệp Vụ Ngoại Thương (Dành cho Sinh Viên)</h3>
                 <p><strong>Đề bài:</strong> Công ty Tân Phát chuẩn bị nhập khẩu 1 lô hàng 500 chiếc Tủ lạnh dung tích 250 lít từ Thái Lan (giá FOB Bangkok: 200 USD/chiếc, cước biển Freight: 1,500 USD/lô, bảo hiểm: 200 USD/lô). Tỷ giá 25,200 VND/USD. Thuế NK MFN: 25%, Thuế NK ATIGA (Form D): 0%, VAT: 10%.</p>
@@ -1243,12 +1490,316 @@
                     </button>
                 </div>
             </div>
+            </div>
         </section>
     </main>
 
     <footer>
         <p>© 2026 Phần Mềm Lý Thuyết & Thực Hành Nghiệp Vụ Ngoại Thương - Dành Cho Giảng Dạy & Học Tập</p>
     </footer>
+
+    <script id="test-data">
+        // NGÂN HÀNG ĐỀ KIỂM TRA CHƯƠNG 1 (40 CÂU) - 100 ĐIỂM
+        // Phần I: 20 câu x 2đ | Phần II: 4 câu x 2đ | Phần III: 8 câu x 4đ | Phần IV: 8 câu x 2,5đ
+        // Đáp án và lời giải được MÃ HÓA (AES-GCM) bằng mật khẩu giảng viên; trang chỉ lưu mã băm để chấm điểm.
+        const TEST_PARTS = [
+ {
+  "id": "I",
+  "type": "mcq",
+  "points": 2,
+  "title": "PHẦN I. TRẮC NGHIỆM LÝ THUYẾT",
+  "note": "Chọn MỘT đáp án đúng nhất cho mỗi câu.",
+  "questions": [
+   {
+    "q": "Đặc điểm nào sau đây <strong>KHÔNG</strong> phải là đặc điểm của giao dịch thương mại quốc tế?",
+    "opts": [
+     "Bên mua và bên bán có trụ sở thương mại ở các quốc gia khác nhau",
+     "Hàng hóa di chuyển qua biên giới quốc gia",
+     "Thanh toán thường bằng ngoại tệ tự do chuyển đổi",
+     "Các bên chỉ chịu sự điều chỉnh của duy nhất một hệ thống pháp luật nội địa"
+    ]
+   },
+   {
+    "q": "Hình thức giao dịch trong đó bên nhận nhập nguyên liệu từ bên đặt (hoặc theo chỉ định), chế biến thành thành phẩm rồi xuất trả cho bên đặt để nhận phí gia công là:",
+    "opts": [
+     "Xuất khẩu trực tiếp",
+     "Xuất khẩu ủy thác",
+     "Gia công quốc tế",
+     "Tạm nhập - tái xuất"
+    ]
+   },
+   {
+    "q": "Hàng hóa từ nước ngoài đưa vào Việt Nam, sau đó xuất khẩu sang nước thứ ba mà không làm thủ tục nhập khẩu tiêu dùng, được gọi là:",
+    "opts": [
+     "Tạm nhập - tái xuất",
+     "Tạm xuất - tái nhập",
+     "Xuất khẩu ủy thác",
+     "Gia công quốc tế"
+    ]
+   },
+   {
+    "q": "Doanh nghiệp A không trực tiếp đàm phán với đối tác nước ngoài mà ký hợp đồng giao cho công ty B có kinh nghiệm đứng tên thực hiện giao dịch. Đây là hình thức:",
+    "opts": [
+     "Xuất nhập khẩu trực tiếp",
+     "Xuất nhập khẩu ủy thác",
+     "Gia công quốc tế",
+     "Tạm xuất - tái nhập"
+    ]
+   },
+   {
+    "q": "Mục đích chính của Cổng thông tin một cửa quốc gia (VNSW) là:",
+    "opts": [
+     "Thay thế hoàn toàn cơ quan Hải quan trong việc quyết định thông quan",
+     "Cho phép khai báo, nộp hồ sơ điện tử một lần để thực hiện thủ tục hải quan và thủ tục của các cơ quan quản lý chuyên ngành",
+     "Là sàn thương mại điện tử B2B kết nối người mua và người bán quốc tế",
+     "Là hệ thống thanh toán quốc tế giữa các ngân hàng"
+    ]
+   },
+   {
+    "q": "Cấp độ chi tiết nhất của mã HS còn được <strong>thống nhất trên toàn thế giới</strong> theo Công ước HS là:",
+    "opts": [
+     "Chương (2 chữ số)",
+     "Nhóm (4 chữ số)",
+     "Phân nhóm (6 chữ số)",
+     "Mã chi tiết quốc gia (8 chữ số)"
+    ]
+   },
+   {
+    "q": "Hệ thống Hài hòa mô tả và mã hóa hàng hóa (HS) do tổ chức nào ban hành?",
+    "opts": [
+     "Tổ chức Thương mại Thế giới (WTO)",
+     "Tổ chức Hải quan Thế giới (WCO)",
+     "Phòng Thương mại Quốc tế (ICC)",
+     "Hội nghị Liên hợp quốc về Thương mại và Phát triển (UNCTAD)"
+    ]
+   },
+   {
+    "q": "Trong mã HS <strong>8415.10.10</strong>, cụm \"84.15\" thể hiện cấp độ nào?",
+    "opts": [
+     "Chương",
+     "Phân nhóm",
+     "Mã chi tiết quốc gia",
+     "Nhóm"
+    ]
+   },
+   {
+    "q": "Quy tắc tổng quát giải thích HS số 1 (GIR 1) quy định việc phân loại hàng hóa được xác định chủ yếu căn cứ vào:",
+    "opts": [
+     "Tên nhóm hàng và các Chú giải Phần, Chương liên quan",
+     "Giá trị của hàng hóa trên hóa đơn",
+     "Tên thương mại do nhà sản xuất đặt",
+     "Mã HS mà nước xuất khẩu đã sử dụng"
+    ]
+   },
+   {
+    "q": "Một bộ xe đạp ở dạng tháo rời, chưa lắp ráp nhưng đã có đặc trưng cơ bản của xe đạp hoàn chỉnh, được phân loại theo quy tắc nào?",
+    "opts": [
+     "GIR 3(c)",
+     "GIR 4",
+     "GIR 5",
+     "GIR 2(a)"
+    ]
+   },
+   {
+    "q": "Khi một mặt hàng có thể thuộc nhiều nhóm và <strong>không áp dụng được</strong> GIR 3(a), GIR 3(b), theo GIR 3(c) hàng hóa được phân loại vào:",
+    "opts": [
+     "Nhóm có thuế suất thấp nhất",
+     "Nhóm có thứ tự đầu tiên trong số các nhóm cùng xem xét",
+     "Nhóm có thứ tự cuối cùng trong số các nhóm cùng xem xét",
+     "Nhóm do doanh nghiệp tự lựa chọn"
+    ]
+   },
+   {
+    "q": "Một sản phẩm mới chưa được mô tả trong Biểu thuế. Theo GIR 4, sản phẩm này được phân loại vào:",
+    "opts": [
+     "Nhóm có thuế suất thấp nhất để doanh nghiệp được lợi",
+     "Nhóm cuối cùng của Chương gần nhất",
+     "Nhóm hàng hóa giống chúng nhất (về bản chất, công dụng)",
+     "Nhóm do người khai hải quan tự chọn"
+    ]
+   },
+   {
+    "q": "Để được hưởng thuế suất nhập khẩu ưu đãi đặc biệt theo một Hiệp định thương mại tự do (FTA), doanh nghiệp <strong>bắt buộc</strong> phải có:",
+    "opts": [
+     "Giấy phép nhập khẩu của Bộ Công Thương",
+     "Hóa đơn giá trị gia tăng của nhà xuất khẩu",
+     "Giấy chứng nhận xuất xứ (C/O) hợp lệ và hàng hóa đáp ứng quy tắc xuất xứ",
+     "Giấy chứng nhận kiểm dịch của nước xuất khẩu"
+    ]
+   },
+   {
+    "q": "C/O Form D và C/O Form E tương ứng lần lượt với các hiệp định nào?",
+    "opts": [
+     "ATIGA (ASEAN) và ACFTA (ASEAN - Trung Quốc)",
+     "ACFTA và ATIGA",
+     "EVFTA và CPTPP",
+     "AKFTA và AJCEP"
+    ]
+   },
+   {
+    "q": "Theo nội dung bài giảng, thuế suất thông thường áp dụng cho hàng nhập khẩu từ nước không có quan hệ MFN hay FTA với Việt Nam bằng:",
+    "opts": [
+     "100% thuế suất MFN",
+     "150% thuế suất MFN",
+     "50% thuế suất MFN",
+     "200% thuế suất MFN"
+    ]
+   },
+   {
+    "q": "Giá tính thuế giá trị gia tăng (VAT) của hàng nhập khẩu <strong>không chịu thuế TTĐB</strong> bằng:",
+    "opts": [
+     "Trị giá CIF",
+     "Trị giá CIF + Thuế nhập khẩu phải nộp",
+     "Trị giá FOB + Thuế nhập khẩu phải nộp",
+     "Trị giá CIF - Thuế nhập khẩu phải nộp"
+    ]
+   },
+   {
+    "q": "Trên các sàn B2B (Alibaba, Global Sources...), \"RFQ\" là viết tắt của thuật ngữ nào và có nghĩa gì?",
+    "opts": [
+     "Request for Quotation - yêu cầu báo giá",
+     "Return for Quality - trả hàng do lỗi chất lượng",
+     "Receipt for Query - biên nhận câu hỏi",
+     "Rate for Quantity - đơn giá theo số lượng"
+    ]
+   },
+   {
+    "q": "Tờ khai hải quan điện tử được hệ thống phân vào <strong>luồng Đỏ</strong> có nghĩa là:",
+    "opts": [
+     "Thông quan ngay, không kiểm tra",
+     "Được miễn thuế nhập khẩu",
+     "Chỉ kiểm tra hồ sơ điện tử",
+     "Phải kiểm tra chi tiết hồ sơ và kiểm tra thực tế hàng hóa"
+    ]
+   },
+   {
+    "q": "Cách nào sau đây đáng tin cậy nhất để xác minh năng lực sản xuất thực tế của một nhà cung cấp nước ngoài trước khi đặt hàng lớn?",
+    "opts": [
+     "Xem hình ảnh nhà máy đăng trên gian hàng B2B",
+     "Hỏi trực tiếp nhà cung cấp và tin vào lời xác nhận của họ",
+     "Thuê đơn vị kiểm định độc lập (SGS, Bureau Veritas, Intertek...) đánh giá trực tiếp tại nhà máy (Factory Audit)",
+     "Chọn nhà cung cấp có báo giá thấp nhất"
+    ]
+   },
+   {
+    "q": "Nhà cung cấp yêu cầu đặt cọc 30% vào tài khoản <strong>cá nhân ở nước thứ ba</strong>, khác tên công ty trong hợp đồng. Doanh nghiệp nên:",
+    "opts": [
+     "Từ chối, chỉ thanh toán vào tài khoản chính thức của công ty đã được xác minh pháp lý",
+     "Chuyển khoản vì giá chào rất cạnh tranh",
+     "Chuyển trước 50% để tạo niềm tin",
+     "Đồng ý sửa hợp đồng ghi tên người nhận là cá nhân đó"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "II",
+  "type": "tf",
+  "points": 2,
+  "title": "PHẦN II. ĐÚNG / SAI",
+  "note": "Chọn Đúng hoặc Sai cho mỗi nhận định.",
+  "questions": [
+   {
+    "q": "Hàng hóa thuộc Danh mục cấm nhập khẩu vẫn được nhập khẩu bình thường nếu có C/O Form D hợp lệ."
+   },
+   {
+    "q": "Xác định trước mã số HS (Advance Ruling) giúp doanh nghiệp giảm rủi ro bị hải quan truy thu thuế do áp sai mã."
+   },
+   {
+    "q": "Trong gia công quốc tế, bên nhận gia công được hưởng toàn bộ doanh thu khi bán thành phẩm trên thị trường quốc tế."
+   },
+   {
+    "q": "Giá tính thuế GTGT của hàng nhập khẩu bao gồm cả thuế nhập khẩu phải nộp."
+   }
+  ]
+ },
+ {
+  "id": "III",
+  "type": "calc",
+  "points": 4,
+  "title": "PHẦN III. BÀI TẬP TÍNH TOÁN",
+  "note": "Nhập kết quả cuối cùng vào ô đáp số (làm tròn đến đồng; có thể trình bày cách giải ở ô bên dưới). Công thức: CIF = FOB + F + I; Thuế NK = CIF(VND) x %NK; Thuế TTĐB = (CIF + Thuế NK) x %TTĐB; VAT = (CIF + Thuế NK + Thuế TTĐB) x %VAT.",
+  "questions": [
+   {
+    "q": "Lô hàng có giá FOB 80,000 USD, cước vận tải quốc tế 4,200 USD, phí bảo hiểm 300 USD. Tính trị giá CIF của lô hàng.",
+    "unit": "USD",
+    "dp": 0
+   },
+   {
+    "q": "Lô hàng có trị giá CIF 100,000 USD, tỷ giá tính thuế 25,000 VND/USD, thuế suất nhập khẩu 8%. Tính số thuế nhập khẩu phải nộp.",
+    "unit": "VND",
+    "dp": 0
+   },
+   {
+    "q": "Lô hàng có trị giá CIF 40,000 USD, tỷ giá tính thuế 25,300 VND/USD, thuế suất NK 15%, VAT 10%. Tính số thuế GTGT phải nộp.",
+    "unit": "VND",
+    "dp": 0
+   },
+   {
+    "q": "Mặt hàng chịu thuế tiêu thụ đặc biệt (giả định). Trị giá CIF 40,000 USD, tỷ giá 25,000 VND/USD, thuế NK 20%, thuế TTĐB 35%, VAT 10%. Tính <strong>tổng</strong> nghĩa vụ thuế (NK + TTĐB + VAT).",
+    "unit": "VND",
+    "dp": 0
+   },
+   {
+    "q": "Công ty nhập khẩu 300 chiếc tủ lạnh từ Thái Lan, giá FOB 180 USD/chiếc, cước biển 1,200 USD/lô, bảo hiểm 150 USD/lô. Tỷ giá 25,200 VND/USD. Thuế NK MFN 25%, VAT 10%. Tính <strong>tổng thuế phải nộp theo mức MFN</strong>.",
+    "unit": "VND",
+    "dp": 0
+   },
+   {
+    "q": "Cũng lô tủ lạnh ở câu trên, nếu có C/O Form D hợp lệ và hưởng thuế NK ATIGA 0% thì doanh nghiệp <strong>tiết kiệm được bao nhiêu tiền thuế</strong> so với áp dụng MFN?",
+    "unit": "VND",
+    "dp": 0
+   },
+   {
+    "q": "Chấm điểm nhà cung cấp (trọng số: Giá 30%, Chất lượng 30%, Giao hàng 20%, Thanh toán 10%, Uy tín & hỗ trợ 10%). Điểm đánh giá (thang 10) lần lượt là: 7; 8; 9; 6; 10. Tính tổng điểm quy đổi (thang 10, lấy 1 chữ số thập phân).",
+    "unit": "điểm",
+    "dp": 1
+   },
+   {
+    "q": "Lô hàng điều hòa có trị giá CIF 50,000 USD, tỷ giá 25,400 VND/USD. Thuế NK MFN 14%, thuế NK ATIGA (Form D) 0%. Tính <strong>chênh lệch tiền thuế nhập khẩu</strong> giữa hai mức thuế suất này.",
+    "unit": "VND",
+    "dp": 0
+   }
+  ]
+ },
+ {
+  "id": "IV",
+  "type": "essay",
+  "points": 2.5,
+  "title": "PHẦN IV. GIẢI THÍCH - TỰ LUẬN - TÌNH HUỐNG",
+  "note": "Trình bày ngắn gọn, đúng trọng tâm. Phần này do giảng viên chấm; gợi ý đáp án hiển thị sau khi nộp bài.",
+  "questions": [
+   {
+    "q": "Phân biệt xuất nhập khẩu trực tiếp và xuất nhập khẩu ủy thác. Nêu ít nhất 2 điểm khác nhau."
+   },
+   {
+    "q": "Nêu 4 đặc điểm của thương mại quốc tế và giải thích vì sao rủi ro trong TMQT cao hơn thương mại nội địa."
+   },
+   {
+    "q": "Nêu 3 lợi ích của Cổng thông tin một cửa quốc gia (VNSW) đối với doanh nghiệp xuất nhập khẩu. Cho một ví dụ minh họa."
+   },
+   {
+    "q": "Giải thích cấu trúc mã HS 8 chữ số của Việt Nam, lấy ví dụ mã 8415.10.10, và nêu 2 vai trò của mã HS trong nghiệp vụ ngoại thương."
+   },
+   {
+    "q": "Nêu các điều kiện để hàng nhập khẩu từ ASEAN được hưởng thuế suất ATIGA (C/O Form D). Nếu C/O Form D bị từ chối thì doanh nghiệp chịu hậu quả gì?"
+   },
+   {
+    "q": "Doanh nghiệp nhập khẩu máy điều hòa gia đình Inverter 12,000 BTU từ ASEAN. Hãy liệt kê các nhóm quy định kiểm tra/quản lý chuyên ngành cần lưu ý và các chứng từ cơ bản trong bộ hồ sơ hải quan nhập khẩu."
+   },
+   {
+    "q": "Trình bày quy trình 4 bước thẩm định (credit check) một nhà cung cấp nước ngoài trước khi ký hợp đồng giá trị lớn."
+   },
+   {
+    "q": "<strong>Tình huống tổng hợp.</strong> Công ty bạn nhận 2 báo giá linh kiện điện tử. NCC A: giá thấp hơn 8%, mới hoạt động 1 năm, chưa có chứng chỉ ISO, yêu cầu đặt cọc 30% vào tài khoản cá nhân. NCC B: giá cao hơn, Gold Supplier 8 năm, có ISO 9001, nhận thanh toán vào tài khoản công ty. Hãy đề xuất lựa chọn, giải thích bằng bảng chấm điểm (Scorecard) và nêu biện pháp giảm rủi ro."
+   }
+  ]
+ }
+];
+        const TEST_SALT = "9dc547f2b28a703d";
+        const TEST_HASH = {"1":"efe09f65f3dd34ba298a2c68befa34f1054b7ae3359753cf3af2a304f8865acc","2":"4be2997521f0561de2e519725a045112a2abe2af830549f959295110504c7d70","3":"4c5de97fdad66057508850c2db0a4044cf15b06ea360bd6fc079c2533e184c7a","4":"bf81b2b781b16b4bc01ce58114cea0b22ce7cda3dd4666d10a23c04791f7e39d","5":"88f69c4d33ea9d41e56a259fe7f8c75def0b2341cb4803e0d149ef8cb9f79e94","6":"d46f2caf19db0bb2fbc4b6c7105b2edf8c918a53b2a5e902e62a4e0aa02636e7","7":"c6eb6a8b839fddbee33350f80d8c7df318d7425d25a419ccd7e2dbc310230fc7","8":"238aeec5e60a9b54fd504d777c26b5f63054b591066fdcb30c25b6e5522ec8f6","9":"37d440a64a0ba2a2b619ca07af396ce2f245f5cbfe601dba8a901a08bc0720c4","10":"d2a566c79c88b3900a7abf285342f39f60be3c04e68d764b8c5ff7f91bff1dc3","11":"e0ce09a00a31503a25c2f741d2c870b31974436873acd6e698e8736143268e66","12":"beebd018e255b6586529a317b461845d8a30e6b84bed054e1c637913cba19bdf","13":"c51dd3ecb086a9719bbd8fbc385ad504ae856e57b1247483cdfffc0d1b3c773a","14":"075ca846cc7f7bb206eeb3673f64eda0b3956250afa2b6d8621bca2175cb020f","15":"94184483d45b8e7cf4f7deb626e60db5625dd0a998e212393a5b5b852c39bb4e","16":"ba561cb0eef359a30537136df32df43ccdfe6301cfe981f30de8daf9eef68834","17":"5d67504e9932f4c20eaaa8e7a7bff63e0f7657bf07c6389234ae2002f7609ed0","18":"06627aba580de62e925bb16dc35045d19207073ae7194a82efe8895d21daa5a4","19":"d88518561a63739597c43607a8e8bc4f47c002d100677b8799400bcb7e7e5bd9","20":"3c1b3c8725421052c558f9012beec4641ba4edbf33c3d18882c4a5c930a8249f","21":"0f1386396666ec7c50f1d0825bf4d63f11ff877dd57a0918fb4570b861a857f1","22":"f977699ae3702b7c1aaffba1bd6b5d8fccde89acd7c6fcf64dfba65b122f5f5c","23":"549a9704b40ba0fa65840b8bb9a6ab7270f53d9d3940a1e9491e32c1ff351528","24":"1a279711c80273c13365ece397f395de426d4c3288b60d78290d75d05ff0944f","25":"e1a19283e28081faf314bc09ba8eed64f5cbb71bbaa73033b47248bfb62ac99a","26":"0e57950a90c482baf74643ab4c62e85c4457d789f8ccd007325f983f5b648c53","27":"6f60a532e6bbb07c8d0482a8cc0445bc1098db4baf42c6cb1d0215559e3a1733","28":"294ff475d3d5e27e2a7807d8d8cc7a249763ee5afdb7179cec472a9513fb989f","29":"5e31bbe4cdb4c3a47dd502cf7f18224f82d0efcf86673b4e7a3b38133726a4e6","30":"0537010ceb7d7bd0d2b2d1de14b37d7ee7aff0dfbad3582bb98800b3cfb9de74","31":"9cedc028c240f8db1da3e77c9b8a775cd3b5f50f10ee1139328696a9d112deda","32":"72c9eaf363fc9556edc03e0faa7d80bc61bf07ea63d13ce62b7e7fdf44d20536"};
+        const TEST_ENC = {"s":"XzqTkC7Kqzmr6KtJVWsHrA==","iv":"NK7vPkAT9Fo726o5","ct":"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","it":150000};
+    </script>
 
     <script>
         // XỬ LÝ CHUYỂN TAB CHÍNH
@@ -1658,9 +2209,277 @@
             targetDiv.innerHTML = html;
         }
 
+        // ===== BÀI KIỂM TRA CHƯƠNG 1: LÀM BÀI, HOÀN THÀNH, XUẤT PDF, CHẾ ĐỘ GIẢNG VIÊN =====
+        // Sinh viên: chỉ thấy điểm sau khi bấm HOÀN THÀNH (không thấy đáp án).
+        // Giảng viên: nhập mật khẩu để giải mã và xem đáp án / lời giải / gợi ý chấm tự luận.
+        let testDone = false;
+        let LECT_KEY = null;
+        const TEST_LETTERS = ['A', 'B', 'C', 'D'];
+
+        function fmtPts(x) { return String(x).replace('.', ','); }
+
+        function buildTest() {
+            const root = document.getElementById('test-container');
+            if (!root || typeof TEST_PARTS === 'undefined') return;
+            let n = 0;
+            let html = '';
+            TEST_PARTS.forEach(part => {
+                html += '<div class="test-part">';
+                html += '<h3 class="test-part-title">' + part.title + ' <span>(' + part.questions.length + ' câu x ' + fmtPts(part.points) + ' điểm = ' + fmtPts(part.questions.length * part.points) + ' điểm)</span></h3>';
+                html += '<p class="test-part-note">' + part.note + '</p>';
+                part.questions.forEach(q => {
+                    n++;
+                    q._n = n;
+                    q._type = part.type;
+                    html += '<div class="q-item" id="qi-' + n + '">';
+                    html += '<div class="q-head"><span class="q-num">Câu ' + n + '</span><span class="q-pts">' + fmtPts(part.points) + ' điểm</span></div>';
+                    html += '<div class="q-text">' + q.q + '</div>';
+                    if (part.type === 'mcq') {
+                        q.opts.forEach((o, i) => {
+                            html += '<label class="q-opt" id="qo-' + n + '-' + i + '"><input type="radio" name="q' + n + '" value="' + i + '"><span><strong>' + TEST_LETTERS[i] + '.</strong> ' + o + '</span></label>';
+                        });
+                    } else if (part.type === 'tf') {
+                        html += '<label class="q-opt" id="qo-' + n + '-1"><input type="radio" name="q' + n + '" value="1"><span><strong>Đúng</strong></span></label>';
+                        html += '<label class="q-opt" id="qo-' + n + '-0"><input type="radio" name="q' + n + '" value="0"><span><strong>Sai</strong></span></label>';
+                    } else if (part.type === 'calc') {
+                        html += '<div class="q-calc-row"><label for="qa-' + n + '"><strong>Đáp số:</strong></label> <input type="number" step="any" class="profile-input q-calc" id="qa-' + n + '" placeholder="Nhập kết quả"> <span class="q-unit">' + q.unit + '</span></div>';
+                        html += '<textarea class="profile-textarea q-work" id="qw-' + n + '" style="min-height:60px;" placeholder="Cách giải (không bắt buộc)..."></textarea>';
+                        html += '<div class="q-print-answer" id="qpw-' + n + '"></div>';
+                    } else {
+                        html += '<textarea class="profile-textarea q-essay" id="qe-' + n + '" style="min-height:110px;" placeholder="Nhập câu trả lời..."></textarea>';
+                        html += '<div class="q-print-answer" id="qpe-' + n + '"></div>';
+                    }
+                    html += '<div class="q-feedback" id="qf-' + n + '"></div>';
+                    html += '</div>';
+                });
+                html += '</div>';
+            });
+            root.innerHTML = html;
+            updateTestProgress();
+        }
+
+        function testTotalQuestions() {
+            let t = 0;
+            TEST_PARTS.forEach(p => t += p.questions.length);
+            return t;
+        }
+
+        function isAnswered(q) {
+            const n = q._n;
+            if (q._type === 'mcq' || q._type === 'tf') return !!document.querySelector('input[name="q' + n + '"]:checked');
+            if (q._type === 'calc') return document.getElementById('qa-' + n).value.trim() !== '';
+            return document.getElementById('qe-' + n).value.trim() !== '';
+        }
+
+        function updateTestProgress() {
+            let done = 0;
+            TEST_PARTS.forEach(p => p.questions.forEach(q => { if (isAnswered(q)) done++; }));
+            const el = document.getElementById('test-progress');
+            if (el) el.innerText = 'Đã làm: ' + done + ' / ' + testTotalQuestions() + ' câu';
+        }
+
+        // Chuẩn hóa câu trả lời của sinh viên thành chuỗi để so với mã băm
+        function normStudentAnswer(q) {
+            const n = q._n;
+            if (q._type === 'mcq' || q._type === 'tf') {
+                const sel = document.querySelector('input[name="q' + n + '"]:checked');
+                return sel ? String(parseInt(sel.value, 10)) : null;
+            }
+            const raw = document.getElementById('qa-' + n).value;
+            const v = parseFloat(raw);
+            if (raw.trim() === '' || isNaN(v)) return null;
+            return Number(v.toFixed(q.dp)).toString();
+        }
+
+        async function sha256Hex(s) {
+            const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+            return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        function nowString() {
+            const d = new Date();
+            const p = x => String(x).padStart(2, '0');
+            return p(d.getHours()) + ':' + p(d.getMinutes()) + ' ngày ' + p(d.getDate()) + '/' + p(d.getMonth() + 1) + '/' + d.getFullYear();
+        }
+
+        // SINH VIÊN BẤM "HOÀN THÀNH BÀI LÀM"
+        async function finishTest() {
+            if (testDone) return;
+            if (!window.crypto || !crypto.subtle) {
+                alert('Trình duyệt không hỗ trợ chấm điểm tự động. Vui lòng mở file bằng Chrome, Edge hoặc Firefox bản mới.');
+                return;
+            }
+            const nameEl = document.getElementById('disp-name');
+            const idEl = document.getElementById('disp-id');
+            if (!nameEl || !nameEl.innerText.trim() || !idEl || !idEl.innerText.trim()) {
+                alert('Bạn chưa nhập thông tin sinh viên. Vui lòng vào tab "THÔNG TIN CHUNG", nhập Họ tên, MSSV và bấm "LƯU THÔNG TIN" trước khi hoàn thành bài.');
+                return;
+            }
+            let unanswered = 0;
+            TEST_PARTS.forEach(p => p.questions.forEach(q => { if (!isAnswered(q)) unanswered++; }));
+            const msg = unanswered > 0
+                ? 'Bạn còn ' + unanswered + ' câu chưa trả lời. Sau khi hoàn thành sẽ KHÔNG thể sửa bài. Vẫn hoàn thành?'
+                : 'Sau khi hoàn thành bạn sẽ KHÔNG thể sửa bài. Xác nhận hoàn thành?';
+            if (!confirm(msg)) return;
+
+            const rows = [];
+            let autoScore = 0;
+            let autoMax = 0;
+            let essayMax = 0;
+            for (const part of TEST_PARTS) {
+                let got = 0;
+                let right = 0;
+                const max = part.questions.length * part.points;
+                for (const q of part.questions) {
+                    const n = q._n;
+                    // Lưu bản in cho các ô nhập tự do
+                    if (part.type === 'calc') {
+                        const w = document.getElementById('qw-' + n).value.trim();
+                        document.getElementById('qpw-' + n).textContent = w ? 'Cách giải: ' + w : '';
+                    }
+                    if (part.type === 'essay') {
+                        const t = document.getElementById('qe-' + n).value.trim();
+                        document.getElementById('qpe-' + n).textContent = t ? 'Bài làm: ' + t : 'Bài làm: (để trống)';
+                        continue;
+                    }
+                    const sel = part.type === 'calc' ? null : document.querySelector('input[name="q' + n + '"]:checked');
+                    if (sel) sel.closest('.q-opt').classList.add('chosen');
+                    const a = normStudentAnswer(q);
+                    if (a !== null && (await sha256Hex(TEST_SALT + '|' + n + '|' + a)) === TEST_HASH[n]) {
+                        got += part.points;
+                        right++;
+                    }
+                }
+                if (part.type === 'essay') {
+                    essayMax += max;
+                    rows.push('<tr><td>' + part.title + '</td><td style="text-align:center;">' + part.questions.length + '</td><td style="text-align:center;">-</td><td style="text-align:center;font-weight:bold;">Giảng viên chấm / ' + fmtPts(max) + '</td></tr>');
+                } else {
+                    autoScore += got;
+                    autoMax += max;
+                    rows.push('<tr><td>' + part.title + '</td><td style="text-align:center;">' + part.questions.length + '</td><td style="text-align:center;">' + right + ' / ' + part.questions.length + '</td><td style="text-align:center;font-weight:bold;">' + fmtPts(got) + ' / ' + fmtPts(max) + '</td></tr>');
+                }
+            }
+
+            document.querySelectorAll('#test-container input, #test-container textarea').forEach(el => el.disabled = true);
+            testDone = true;
+
+            const res = document.getElementById('test-result');
+            res.innerHTML = '<h3>KẾT QUẢ BÀI KIỂM TRA</h3>' +
+                '<p><strong>Sinh viên:</strong> ' + nameEl.innerText + ' &nbsp;|&nbsp; <strong>MSSV:</strong> ' + idEl.innerText + '</p>' +
+                '<p><strong>Hoàn thành lúc:</strong> ' + nowString() + '</p>' +
+                '<table class="excel-table"><thead><tr><th>Phần</th><th>Số câu</th><th>Số câu đúng</th><th>Điểm</th></tr></thead><tbody>' + rows.join('') + '</tbody></table>' +
+                '<p class="test-score-big">Điểm Phần I - III (chấm tự động): <span>' + fmtPts(autoScore) + ' / ' + fmtPts(autoMax) + '</span></p>' +
+                '<p>Phần IV (Tự luận, ' + fmtPts(essayMax) + ' điểm) do giảng viên chấm. Bài làm đã khóa. Bấm <strong>XUẤT PDF NỘP BÀI (A4)</strong> để lưu bài làm và nộp cho giảng viên.</p>';
+            res.style.display = 'block';
+
+            document.getElementById('btn-finish').disabled = true;
+            document.getElementById('btn-pdf').disabled = false;
+            if (LECT_KEY) applyLecturerView();
+            res.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // XUẤT PDF A4 (dùng hộp thoại in của trình duyệt: chọn "Lưu dưới dạng PDF", khổ A4)
+        function exportTestPdf() {
+            if (!testDone && !LECT_KEY) {
+                alert('Bạn cần bấm "HOÀN THÀNH BÀI LÀM" trước khi xuất PDF nộp bài.');
+                return;
+            }
+            const oldTitle = document.title;
+            const id = (document.getElementById('disp-id') || {}).innerText || '';
+            const nm = ((document.getElementById('disp-name') || {}).innerText || '').trim().replace(/\s+/g, '_');
+            document.title = 'BaiKiemTra_Chuong1_' + (id || 'MSSV') + '_' + (nm || 'SinhVien');
+            window.onafterprint = function () { document.title = oldTitle; window.onafterprint = null; };
+            window.print();
+        }
+
+        // ===== CHẾ ĐỘ GIẢNG VIÊN =====
+        function b64ToBytes(b) { return Uint8Array.from(atob(b), c => c.charCodeAt(0)); }
+
+        async function unlockLecturer() {
+            if (LECT_KEY) { lockLecturer(); return; }
+            if (!window.crypto || !crypto.subtle) { alert('Trình duyệt không hỗ trợ giải mã. Vui lòng dùng Chrome, Edge hoặc Firefox bản mới.'); return; }
+            const pw = prompt('Nhập mật khẩu giảng viên để xem đáp án:');
+            if (!pw) return;
+            try {
+                const km = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
+                const key = await crypto.subtle.deriveKey(
+                    { name: 'PBKDF2', salt: b64ToBytes(TEST_ENC.s), iterations: TEST_ENC.it, hash: 'SHA-256' },
+                    km, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+                const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64ToBytes(TEST_ENC.iv) }, key, b64ToBytes(TEST_ENC.ct));
+                LECT_KEY = JSON.parse(new TextDecoder().decode(plain));
+            } catch (err) {
+                alert('Sai mật khẩu giảng viên.');
+                return;
+            }
+            applyLecturerView();
+        }
+
+        function applyLecturerView() {
+            TEST_PARTS.forEach(part => part.questions.forEach(q => {
+                const n = q._n;
+                const k = LECT_KEY[n];
+                const item = document.getElementById('qi-' + n);
+                const fb = document.getElementById('qf-' + n);
+                item.classList.remove('correct', 'wrong');
+                let head = '<strong>[GIẢNG VIÊN] Đáp án: ' + k.ans + '</strong>';
+                if (testDone && part.type !== 'essay') {
+                    const a = normStudentAnswer(q);
+                    let ok = false;
+                    if (a !== null) {
+                        if (part.type === 'mcq') ok = TEST_LETTERS[parseInt(a, 10)] === k.ans;
+                        else if (part.type === 'tf') ok = (a === '1') === (k.ans === 'Đúng');
+                        else ok = Number(k.num.toFixed(q.dp)).toString() === a;
+                    }
+                    item.classList.add(ok ? 'correct' : 'wrong');
+                    head += ok ? ' <span class="fb-ok">✔ Sinh viên làm đúng</span>' : ' <span class="fb-bad">✘ Sinh viên ' + (a === null ? 'chưa trả lời' : 'làm sai') + '</span>';
+                }
+                fb.innerHTML = head + '<br>' + k.exp;
+                item.classList.add('graded');
+                if (part.type === 'mcq') document.getElementById('qo-' + n + '-' + TEST_LETTERS.indexOf(k.ans)).classList.add('is-key');
+                if (part.type === 'tf') document.getElementById('qo-' + n + '-' + (k.ans === 'Đúng' ? 1 : 0)).classList.add('is-key');
+            }));
+            document.getElementById('btn-lect').innerText = 'THOÁT CHẾ ĐỘ GIẢNG VIÊN';
+            document.getElementById('btn-reset').style.display = 'inline-block';
+            document.getElementById('lect-banner').style.display = 'block';
+        }
+
+        function lockLecturer() {
+            LECT_KEY = null;
+            document.querySelectorAll('#test-container .q-item').forEach(it => {
+                it.classList.remove('graded', 'correct', 'wrong');
+            });
+            document.querySelectorAll('#test-container .q-feedback').forEach(f => f.innerHTML = '');
+            document.querySelectorAll('#test-container .q-opt.is-key').forEach(o => o.classList.remove('is-key'));
+            document.getElementById('btn-lect').innerText = 'GIẢNG VIÊN';
+            document.getElementById('btn-reset').style.display = 'none';
+            document.getElementById('lect-banner').style.display = 'none';
+        }
+
+        // Chỉ giảng viên mới thấy nút này: xóa bài làm để dùng lại trên máy
+        function resetTest() {
+            if (!LECT_KEY) return;
+            if (!confirm('Xóa toàn bộ bài làm và mở khóa để làm lại?')) return;
+            testDone = false;
+            buildTest();
+            const res = document.getElementById('test-result');
+            res.style.display = 'none';
+            res.innerHTML = '';
+            document.getElementById('btn-finish').disabled = false;
+            document.getElementById('btn-pdf').disabled = true;
+            applyLecturerView();
+        }
+
+        document.addEventListener('input', function (e) {
+            if (e.target && e.target.closest && e.target.closest('#test-container')) updateTestProgress();
+        });
+        document.addEventListener('change', function (e) {
+            if (e.target && e.target.closest && e.target.closest('#test-container')) updateTestProgress();
+        });
+
         // KHỞI TẠO MẶC ĐỊNH KHI TẢI TRANG
         window.onload = function() {
             loadTheoryDetail('1.1.1');
+            buildTest();
             calculateFullTax();
             calculateScorecard();
 
